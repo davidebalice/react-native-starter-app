@@ -4,7 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { useNavigation, Button, Text, View } from "@react-navigation/native";
 import Appbar from "../components/Appbar";
 import HomeScreen from "../screens/HomeScreen";
-import PageScreen from "../screens/PageScreen";
+import TextPageScreen from "../screens/TextPageScreen";
 import ProductScreen from "../screens/ProductScreen";
 import SideMenu from "../components/SideMenu";
 const Stack = createStackNavigator();
@@ -47,8 +47,8 @@ const Navigator = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Page"
-          component={PageScreen}
+          name="TextPage"
+          component={TextPageScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen

@@ -21,8 +21,7 @@ const BottomBar = () => {
       <TouchableOpacity
         style={styles.tabButton}
         onPress={() => {
-          // Azione quando si preme il secondo link
-          navigation.navigate("Page");
+          navigation.navigate("TextPage");
         }}
       >
         <IconIonicons name="settings-sharp" size={24} color="#000" />
@@ -40,8 +39,8 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: "#fff",
     elevation: 4,
-    position: "absolute", // Fissato in basso
-    bottom: 0, // Alla fine dello schermo
+    position: "absolute",
+    bottom: 0,
     left: 0,
     right: 0,
   },

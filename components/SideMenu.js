@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { StyleSheet } from "react-native";
 import { Button, Text, View, Image, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import Icon2 from "react-native-vector-icons/Entypo";
 import img from "../assets/img/image.jpg";
 
 const SideMenu = ({ navigation, closeDrawer }) => {
@@ -24,10 +25,10 @@ const SideMenu = ({ navigation, closeDrawer }) => {
 
       <TouchableOpacity
         style={{ flexDirection: "row", alignItems: "center", padding: 10 }}
-        onPress={() => changeScreen("Page")}
+        onPress={() => changeScreen("TextPage")}
       >
-        <Icon name="star" size={20} color="#111" />
-        <Text style={{ marginLeft: 20,color:'#111' }}>Page</Text>
+        <Icon2 name="text" size={20} color="#111" />
+        <Text style={{ marginLeft: 20,color:'#111' }}>Text page</Text>
       </TouchableOpacity>
     </View>
   );
