@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-//import styles from "./styles/styles";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Avatar, Button, Card, Text } from "react-native-paper";
 import Slideshow from "../components/Slideshow";
