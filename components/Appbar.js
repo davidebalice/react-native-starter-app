@@ -1,46 +1,59 @@
-import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import React, { useContext } from "react";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import ThemeContext from "../context/themeContext";
 
-const Appbar = ({ title, onLeftPress, onRightPress, openDrawer }) => {
+const Appbar = ({ onLeftPress, onRightPress, openDrawer }) => {
+  const { theme } = useContext(ThemeContext);
+
+  const styles = {
+    container: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+      padding: 10,
+      paddingTop: 30,
+      backgroundColor: theme.colors.background,
+    },
+    titleContainer: {
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    title: {
+      fontSize: 18,
+      color: "white",
+    },
+    iconContainer: {
+      padding: 10,
+    },
+  };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={onLeftPress} style={styles.iconContainer}>
-        <Icon name="bars" size={30} color="white" onPress={openDrawer} />
+        <Icon
+          name="bars"
+          size={30}
+          color={theme.colors.text}
+          onPress={openDrawer}
+        />
       </TouchableOpacity>
-      
+
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>{title} logo</Text>
+        <Image
+          source={theme.logo}
+          style={{ width: 110, height: 70 }}
+          resizeMode="contain"
+        />
       </View>
-      
-      <TouchableOpacity onPress={onRightPress} style={styles.iconContainer}>
-        {/* Aggiungi eventuali altre icone o azioni */}
-      </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={onRightPress}
+        style={styles.iconContainer}
+      ></TouchableOpacity>
     </View>
   );
-};
-
-const styles = {
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: 10,
-    paddingTop: 30,
-    backgroundColor: "#2196F3",
-  },
-  titleContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 18,
-    color: "white",
-  },
-  iconContainer: {
-    padding: 10,
-  },
 };
 
 export default Appbar;

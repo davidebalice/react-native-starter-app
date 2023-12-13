@@ -28,7 +28,55 @@ const SideMenu = ({ navigation, closeDrawer }) => {
         onPress={() => changeScreen("TextPage")}
       >
         <Icon2 name="text" size={20} color="#111" />
-        <Text style={{ marginLeft: 20,color:'#111' }}>Text page</Text>
+        <Text style={{ marginLeft: 20, color: "#111" }}>Text page</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={{ flexDirection: "row", alignItems: "center", padding: 10 }}
+        onPress={() => changeScreen("Gallery")}
+      >
+        <Icon2 name="text" size={20} color="#111" />
+        <Text style={{ marginLeft: 20, color: "#111" }}>Gallery</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={{ flexDirection: "row", alignItems: "center", padding: 10 }}
+        onPress={() => changeScreen("Products")}
+      >
+        <Icon2 name="text" size={20} color="#111" />
+        <Text style={{ marginLeft: 20, color: "#111" }}>Products</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={{ flexDirection: "row", alignItems: "center", padding: 10 }}
+        onPress={() => changeScreen("Form")}
+      >
+        <Icon2 name="text" size={20} color="#111" />
+        <Text style={{ marginLeft: 20, color: "#111" }}>Form</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={{ flexDirection: "row", alignItems: "center", padding: 10 }}
+        onPress={() => changeScreen("Map")}
+      >
+        <Icon2 name="text" size={20} color="#111" />
+        <Text style={{ marginLeft: 20, color: "#111" }}>Map</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={{ flexDirection: "row", alignItems: "center", padding: 10 }}
+        onPress={() => changeScreen("ProtectedPage")}
+      >
+        <Icon2 name="text" size={20} color="#111" />
+        <Text style={{ marginLeft: 20, color: "#111" }}>Protected page</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={{ flexDirection: "row", alignItems: "center", padding: 10 }}
+        onPress={() => changeScreen("Theme")}
+      >
+        <Icon2 name="text" size={20} color="#111" />
+        <Text style={{ marginLeft: 20, color: "#111" }}>Theme settings</Text>
       </TouchableOpacity>
     </View>
   );
