@@ -12,6 +12,7 @@ import ProtectedScreen from "../screens/ProtectedScreen";
 import FormScreen from "../screens/FormScreen";
 import GalleryScreen from "../screens/GalleryScreen";
 import ThemeScreen from "../screens/ThemeScreen";
+import LoginScreen from "../screens/LoginScreen";
 import SideMenu from "../components/SideMenu";
 
 const Stack = createStackNavigator();
@@ -88,7 +89,12 @@ const Navigator = () => {
           component={GalleryScreen}
           options={{ headerShown: false }}
         />
-          <Stack.Screen
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
           name="Theme"
           component={ThemeScreen}
           options={{ headerShown: false }}

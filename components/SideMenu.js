@@ -65,6 +65,14 @@ const SideMenu = ({ navigation, closeDrawer }) => {
 
       <TouchableOpacity
         style={{ flexDirection: "row", alignItems: "center", padding: 10 }}
+        onPress={() => changeScreen("Login")}
+      >
+        <Icon2 name="text" size={20} color="#111" />
+        <Text style={{ marginLeft: 20, color: "#111" }}>Login</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={{ flexDirection: "row", alignItems: "center", padding: 10 }}
         onPress={() => changeScreen("ProtectedPage")}
       >
         <Icon2 name="text" size={20} color="#111" />
