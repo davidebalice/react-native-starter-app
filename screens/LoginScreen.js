@@ -1,29 +1,59 @@
-import React, { useState } from "react";
-import { View, TextInput, Button, Alert, StyleSheet, Text } from "react-native";
+import React, { useState, useContext } from "react";
+import {
+  View,
+  TextInput,
+  Button,
+  Alert,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import API_URLS from "../config";
+import { AuthContext } from "../context/authContext";
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { token, setAuthToken } = useContext(AuthContext);
+
+  const storeData = async (key, value) => {
+    try {
+      await AsyncStorage.setItem(key, value);
+      console.log("Value stored successfully!");
+    } catch (e) {
+      console.error("Error storing value:", e);
+    }
+  };
 
   const handleLogin = async () => {
-    if (!email || !password) {
+    if (!username || !password) {
       Alert.alert("Error", "Insert email and password");
       return;
     }
     try {
       const response = await axios.post(API_URLS.loginApi, {
-        email,
+        username,
         password,
       });
 
       if (response.status === 200) {
         const data = response.data;
-        console.log("Login success:", data);
+        if (data.token === undefined) {
+          Alert.alert("Invalid login data");
+          storeData("userToken", "");
+          setAuthToken("");
+        } else {
+          storeData("userToken", data.token);
+          setAuthToken(data.token);
+          Alert.alert("Success", "User authenticated");
+          setUsername("");
+          setPassword("");
+        }
       } else {
         const errorData = response.data;
-        Alert.alert("Errore di login", errorData.message || "Login error");
+        Alert.alert("Login error", errorData.message || "Login error");
       }
     } catch (error) {
       console.error("Login error:", error);
@@ -37,8 +67,8 @@ const LoginScreen = () => {
         <TextInput
           style={styles.input}
           placeholder="Email"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
+          value={username}
+          onChangeText={(text) => setUsername(text)}
         />
         <TextInput
           style={styles.input}
@@ -47,7 +77,14 @@ const LoginScreen = () => {
           value={password}
           onChangeText={(text) => setPassword(text)}
         />
-        <Button title="Login" onPress={handleLogin} />
+        <TouchableOpacity onPress={handleLogin} style={styles.loginButton}>
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.demoData}>
+        <Text style={styles.demoDataP}>Demo Data:</Text>
+        <Text style={styles.demoDataP2}>username: mariorossi</Text>
+        <Text style={styles.demoDataP2}>password: 12345678</Text>
       </View>
     </View>
   );
@@ -79,8 +116,9 @@ const styles = StyleSheet.create({
   },
   paragraph: {
     padding: 16,
-    fontSize: 15,
+    fontSize: 16,
     textAlign: "center",
+    fontWeight: "bold",
   },
   input: {
     width: "100%",
@@ -90,58 +128,37 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     paddingHorizontal: 10,
   },
-});
-
-export default LoginScreen;
-
-/*
-import React, { useRef, useState } from "react";
-import { StyleSheet } from "react-native";
-import { Button, Text, View } from "react-native";
-
-const LoginScreen = () => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.paragraph}>Login</Text>
-      <View
-        style={{
-          flexDirection: "row",
-          height: 100,
-          padding: 20,
-        }}
-      >
-        <View style={{ backgroundColor: "blue", flex: 0.3 }} />
-        <View style={{ backgroundColor: "red", flex: 0.5 }} />
-      </View>
-    </View>
-  );
-};
-
-export default LoginScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 16,
+  loginButton: {
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 10,
+    backgroundColor: "#444",
+    color: "#ffffff",
+    borderRadius: 6,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+    elevation: 5,
   },
-  paragraph: {
-    padding: 16,
-    fontSize: 15,
+  buttonText: {
+    color: "#ffffff",
+  },
+  demoData: {
+    marginTop: 20,
     textAlign: "center",
   },
+  demoDataP: {
+    marginTop: 1,
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  demoDataP2: {
+    marginTop: 1,
+  },
 });
 
-
-
-
-
-
-
-
-
-
-
-
-*/
+export default LoginScreen;

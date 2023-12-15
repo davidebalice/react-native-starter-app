@@ -1,39 +1,90 @@
-import React, { useRef, useState } from "react";
-import { StyleSheet } from "react-native";
-import { Button, Text, View } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  FlatList,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
+import axios from "axios";
+import API_URLS from "../config";
 
+const ProductList = () => {
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
-const ProductsScreen = () => {
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get(API_URLS.productApi);
+        setProducts(response.data);
+        setFilteredProducts(response.data);
+      } catch (error) {
+        console.error("Errore nel recupero dei dati dei prodotti:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    const filtered = products.filter((product) =>
+      product.title.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredProducts(filtered);
+  };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.paragraph}>products page</Text>
-      <View
-        style={{
-          flexDirection: "row",
-          height: 100,
-          padding: 20,
-        }}
-      >
-        <View style={{ backgroundColor: "blue", flex: 0.3 }} />
-        <View style={{ backgroundColor: "red", flex: 0.5 }} />
-      </View>
+      <TextInput
+        style={styles.searchInput}
+        placeholder="Search products..."
+        onChangeText={handleSearch}
+        value={searchQuery}
+      />
+      <FlatList
+        data={filteredProducts}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <TouchableOpacity style={styles.productItem}>
+            <Text style={styles.productTitle}>{item.title}</Text>
+            <Text style={styles.productPrice}>Price: ${item.price}</Text>
+          </TouchableOpacity>
+        )}
+      />
     </View>
   );
 };
 
-export default ProductsScreen;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 16,
+    padding: 20,
+    backgroundColor: "#fff",
   },
-  paragraph: {
-    padding: 16,
-    fontSize: 15,
-    textAlign: "center",
+  searchInput: {
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    marginBottom: 20,
+    paddingHorizontal: 10,
+  },
+  productItem: {
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+  },
+  productTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  productPrice: {
+    fontSize: 16,
+    color: "green",
   },
 });
+
+export default ProductList;

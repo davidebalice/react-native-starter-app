@@ -1,61 +1,61 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
-import { Card, Paragraph } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
+import {
+  View,
+  Text,
+  TextInput,
+  FlatList,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 import axios from "axios";
+import API_URLS from "../config";
 
-const Products = () => {
-  const [data, setData] = useState([]);
-  const navigation = useNavigation();
+const ProductList = () => {
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
   useEffect(() => {
-    fetchData();
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get(API_URLS.productApi);
+        setProducts(response.data);
+        setFilteredProducts(response.data);
+      } catch (error) {
+        console.error("Errore nel recupero dei dati dei prodotti:", error);
+      }
+    };
+
+    // Chiamata alla funzione per recuperare i dati dei prodotti
+    fetchProducts();
   }, []);
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get("https://fakestoreapi.com/products", {
-        httpsAgent: {
-          rejectUnauthorized: false,
-        },
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      setData(response.data);
-    } catch (error) {
-      console.log("error:" + error);
-      console.error(error);
-    }
-  };
-
-  const goToProductDetail = (productId) => {
-    navigation.navigate("Product", { productId });
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    const filtered = products.filter((product) =>
+      product.title.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredProducts(filtered);
   };
 
   return (
     <View style={styles.container}>
-      {data &&
-        data.map((item, index) => (
-          <Card key={index} style={styles.card}>
-            <Card.Content style={styles.cardContent}>
-              <TouchableOpacity onPress={() => goToProductDetail(item.id)}>
-                <View style={styles.imageContainer}>
-                  <Image
-                    source={{ uri: item.image }}
-                    style={styles.image}
-                    resizeMode="cover"
-                  />
-                </View>
-                <View style={styles.dataContainer}>
-                  <Paragraph>{item.name}</Paragraph>
-                  <Paragraph>{item.title}</Paragraph>
-                  <Paragraph>{item.price}</Paragraph>
-                </View>
-              </TouchableOpacity>
-            </Card.Content>
-          </Card>
-        ))}
+      <TextInput
+        style={styles.searchInput}
+        placeholder="Search products..."
+        onChangeText={handleSearch}
+        value={searchQuery}
+      />
+      <FlatList
+        data={filteredProducts}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <TouchableOpacity style={styles.productItem}>
+            <Text style={styles.productTitle}>{item.title}</Text>
+            <Text style={styles.productPrice}>Price: ${item.price}</Text>
+          </TouchableOpacity>
+        )}
+      />
     </View>
   );
 };
@@ -63,40 +63,29 @@ const Products = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "row",
-    backgroundColor: "#ffffff",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    padding: 0,
+    padding: 20,
+    backgroundColor: "#fff",
   },
-  card: {
-    width: "46%",
-    margin: "2%",
-    borderColor: "#ddd",
-    backgroundColor: "#ffffff",
+  searchInput: {
+    height: 40,
+    borderColor: "gray",
     borderWidth: 1,
-    overflow: "hidden",
-  },
-  cardContent: {
-    width: "100%",
-    backgroundColor: "#ffffff",
-    margin: 0,
-    paddingHorizontal: 0,
-    paddingVertical: 0,
-  },
-  imageContainer: {
-    width: "100%",
-    aspectRatio: 16 / 20,
-    overflow: "hidden",
-  },
-  image: {
-    width: "100%",
-    height: "100%",
-  },
-  dataContainer: {
+    marginBottom: 20,
     paddingHorizontal: 10,
-    paddingVertical: 10,
+  },
+  productItem: {
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+  },
+  productTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  productPrice: {
+    fontSize: 16,
+    color: "green",
   },
 });
 
-export default Products;
+export default ProductList;

@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { PaperProvider, DefaultTheme } from "react-native-paper";
 import Navigator from "./router/Navigator";
 import BottomBar from "./components/BottomBar";
+import { AuthProvider } from "./context/authContext";
 import ThemeContext from "./context/themeContext";
 import { lightTheme, darkTheme } from "./context/themes";
 
@@ -15,12 +16,14 @@ const App = () => {
   return (
     <>
       <NavigationContainer>
-        <ThemeContext.Provider value={{ theme, toggleTheme }}>
-          <PaperProvider theme={theme}>
-            <Navigator />
-            <BottomBar />
-          </PaperProvider>
-        </ThemeContext.Provider>
+        <AuthProvider>
+          <ThemeContext.Provider value={{ theme, toggleTheme }}>
+            <PaperProvider theme={theme}>
+              <Navigator />
+              <BottomBar />
+            </PaperProvider>
+          </ThemeContext.Provider>
+        </AuthProvider>
       </NavigationContainer>
     </>
   );
