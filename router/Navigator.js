@@ -13,6 +13,7 @@ import FormScreen from "../screens/FormScreen";
 import GalleryScreen from "../screens/GalleryScreen";
 import ThemeScreen from "../screens/ThemeScreen";
 import LoginScreen from "../screens/LoginScreen";
+import ChatScreen from "../screens/ChatScreen";
 import SideMenu from "../components/SideMenu";
 
 const Stack = createStackNavigator();
@@ -92,6 +93,11 @@ const Navigator = () => {
         <Stack.Screen
           name="Login"
           component={LoginScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Chat"
+          component={ChatScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
