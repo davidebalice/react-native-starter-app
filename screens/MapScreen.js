@@ -2,8 +2,7 @@ import React, { useRef, useState } from "react";
 import { StyleSheet } from "react-native";
 import { Button, Text, View } from "react-native";
 
-const ProductScreen = () => {
-
+const MapScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.paragraph}>map</Text>
@@ -21,7 +20,7 @@ const ProductScreen = () => {
   );
 };
 
-export default ProductScreen;
+export default MapScreen;
 
 const styles = StyleSheet.create({
   container: {

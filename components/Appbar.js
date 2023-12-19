@@ -14,6 +14,14 @@ const Appbar = ({ onLeftPress, onRightPress, openDrawer }) => {
       padding: 10,
       paddingTop: 30,
       backgroundColor: theme.colors.background,
+      elevation: 3,
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.2,
+      shadowRadius: 2,
     },
     titleContainer: {
       flex: 1,

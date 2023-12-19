@@ -1,21 +1,12 @@
 import React, { useRef, useState } from "react";
 import { StyleSheet } from "react-native";
-import { Button, Text, View } from "react-native";
+import { Text, View } from "react-native";
+import Form from "../components/Form";
 
 const FormScreen = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.paragraph}>form</Text>
-      <View
-        style={{
-          flexDirection: "row",
-          height: 100,
-          padding: 20,
-        }}
-      >
-        <View style={{ backgroundColor: "blue", flex: 0.3 }} />
-        <View style={{ backgroundColor: "red", flex: 0.5 }} />
-      </View>
+      <Form />
     </View>
   );
 };
@@ -28,6 +19,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 16,
+    width: "100%",
   },
   paragraph: {
     padding: 16,

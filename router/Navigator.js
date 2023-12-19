@@ -8,6 +8,7 @@ import TextPageScreen from "../screens/TextPageScreen";
 import ProductsScreen from "../screens/ProductsScreen";
 import ProductScreen from "../screens/ProductScreen";
 import MapScreen from "../screens/MapScreen";
+import MenuScreen from "../screens/MenuScreen";
 import ProtectedScreen from "../screens/ProtectedScreen";
 import FormScreen from "../screens/FormScreen";
 import GalleryScreen from "../screens/GalleryScreen";
@@ -88,6 +89,11 @@ const Navigator = () => {
         <Stack.Screen
           name="Gallery"
           component={GalleryScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Menu"
+          component={MenuScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen

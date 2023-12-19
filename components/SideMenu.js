@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { StyleSheet } from "react-native";
-import { Button, Text, View, Image, TouchableOpacity } from "react-native";
+import { Text, View, Image, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Icon2 from "react-native-vector-icons/Entypo";
 import img from "../assets/img/image.jpg";
@@ -69,6 +69,14 @@ const SideMenu = ({ navigation, closeDrawer }) => {
       >
         <Icon2 name="text" size={20} color="#111" />
         <Text style={{ marginLeft: 20, color: "#111" }}>Chat</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={{ flexDirection: "row", alignItems: "center", padding: 10 }}
+        onPress={() => changeScreen("Menu")}
+      >
+        <Icon2 name="text" size={20} color="#111" />
+        <Text style={{ marginLeft: 20, color: "#111" }}>Menu</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
