@@ -6,6 +6,7 @@ import Appbar from "../components/Appbar";
 import HomeScreen from "../screens/HomeScreen";
 import TextPageScreen from "../screens/TextPageScreen";
 import ProductsScreen from "../screens/ProductsScreen";
+import ProductsScreen2 from "../screens/ProductsScreen2";
 import ProductScreen from "../screens/ProductScreen";
 import MapScreen from "../screens/MapScreen";
 import MenuScreen from "../screens/MenuScreen";
@@ -64,6 +65,11 @@ const Navigator = () => {
         <Stack.Screen
           name="Products"
           component={ProductsScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Products2"
+          component={ProductsScreen2}
           options={{ headerShown: false }}
         />
         <Stack.Screen

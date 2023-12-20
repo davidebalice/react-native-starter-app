@@ -26,7 +26,6 @@ const ProductList = () => {
       }
     };
 
-    // Chiamata alla funzione per recuperare i dati dei prodotti
     fetchProducts();
   }, []);
 
@@ -59,6 +58,7 @@ const ProductList = () => {
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {

@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import axios from "axios";
 import API_URLS from "../config";
+import ProductsMenu from "../components/ProductsMenu";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -39,6 +40,7 @@ const ProductList = () => {
 
   return (
     <View style={styles.container}>
+      <ProductsMenu />
       <TextInput
         style={styles.searchInput}
         placeholder="Search products..."
