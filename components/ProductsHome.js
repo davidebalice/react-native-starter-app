@@ -34,29 +34,38 @@ const Products = () => {
     navigation.navigate("Product", { productId });
   };
 
+  const formattedPrice = (price) => {
+    return price.toLocaleString("it-IT", {
+      minimumFractionDigits: 2,
+    });
+  };
+
   return (
     <View style={styles.container}>
       {data &&
-        data.map((item, index) => (
-          <Card key={index} style={styles.card}>
-            <Card.Content style={styles.cardContent}>
-              <TouchableOpacity onPress={() => goToProductDetail(item.id)}>
-                <View style={styles.imageContainer}>
-                  <Image
-                    source={{ uri: item.image }}
-                    style={styles.image}
-                    resizeMode="cover"
-                  />
-                </View>
-                <View style={styles.dataContainer}>
-                  <Paragraph>{item.name}</Paragraph>
-                  <Paragraph>{item.title}</Paragraph>
-                  <Paragraph>{item.price}</Paragraph>
-                </View>
-              </TouchableOpacity>
-            </Card.Content>
-          </Card>
-        ))}
+        data
+          .map((item, index) => (
+            <Card key={index} style={styles.card}>
+              <Card.Content style={styles.cardContent}>
+                <TouchableOpacity onPress={() => goToProductDetail(item.id)}>
+                  <View style={styles.imageContainer}>
+                    <Image
+                      source={{ uri: item.image }}
+                      style={styles.image}
+                      resizeMode="contain"
+                    />
+                  </View>
+                  <View style={styles.dataContainer}>
+                    <Paragraph style={styles.title}>{item.title}</Paragraph>
+                    <Paragraph style={styles.price}>
+                      € {formattedPrice(item.price)}
+                    </Paragraph>
+                  </View>
+                </TouchableOpacity>
+              </Card.Content>
+            </Card>
+          ))
+          .slice(0, 6)}
     </View>
   );
 };
@@ -86,9 +95,10 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
   },
   imageContainer: {
-    width: "100%",
+    width: "90%",
     aspectRatio: 16 / 20,
     overflow: "hidden",
+    marginLeft: "4%",
   },
   image: {
     width: "100%",
@@ -97,6 +107,27 @@ const styles = StyleSheet.create({
   dataContainer: {
     paddingHorizontal: 10,
     paddingVertical: 10,
+    display: "flex",
+  },
+  title: {
+    height: 40,
+    borderWidth: 0,
+    fontSize: 13,
+    overflow: "hidden",
+    fontWeight: "bold",
+    marginTop: 5,
+  },
+  price: {
+    borderWidth: 0,
+    textAlign: "right",
+    fontSize: 15,
+    color: "#1280ae",
+    overflow: "hidden",
+    fontWeight: "bold",
+    marginTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: "#ccc",
+    paddingTop: 7,
   },
 });
 

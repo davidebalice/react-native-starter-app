@@ -7,6 +7,8 @@ import HomeScreen from "../screens/HomeScreen";
 import TextPageScreen from "../screens/TextPageScreen";
 import ProductsScreen from "../screens/ProductsScreen";
 import ProductsScreen2 from "../screens/ProductsScreen2";
+import ProductsScreen3 from "../screens/ProductsScreen3";
+import ProductsScreen4 from "../screens/ProductsScreen4";
 import ProductScreen from "../screens/ProductScreen";
 import MapScreen from "../screens/MapScreen";
 import MenuScreen from "../screens/MenuScreen";
@@ -70,6 +72,16 @@ const Navigator = () => {
         <Stack.Screen
           name="Products2"
           component={ProductsScreen2}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Products3"
+          component={ProductsScreen3}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Products4"
+          component={ProductsScreen4}
           options={{ headerShown: false }}
         />
         <Stack.Screen

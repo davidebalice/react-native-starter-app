@@ -2,17 +2,9 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-const ProductsMenu = () => {
+const ProductsMenu = ({ selected }) => {
   const [pressedButton, setPressedButton] = useState(null);
   const navigation = useNavigation();
-
-  const handleButtonPressIn = (buttonName) => {
-    setPressedButton(buttonName);
-  };
-
-  const handleButtonPressOut = () => {
-    setPressedButton(null);
-  };
 
   const isPressed = (buttonName) => {
     return buttonName === pressedButton;
@@ -28,6 +20,7 @@ const ProductsMenu = () => {
         style={[
           styles.button,
           styles.infoButton,
+          selected === 1 && styles.selectedButton,
           isPressed("info") && styles.buttonPressed,
         ]}
         onPress={() => changeScreen("Products")}
@@ -38,7 +31,8 @@ const ProductsMenu = () => {
       <TouchableOpacity
         style={[
           styles.button,
-          styles.dangerButton,
+          styles.infoButton,
+          selected === 2 && styles.selectedButton,
           isPressed("danger") && styles.buttonPressed,
         ]}
         onPress={() => changeScreen("Products2")}
@@ -49,10 +43,11 @@ const ProductsMenu = () => {
       <TouchableOpacity
         style={[
           styles.button,
-          styles.warningButton,
+          styles.infoButton,
+          selected === 3 && styles.selectedButton,
           isPressed("warning") && styles.buttonPressed,
         ]}
-        onPress={() => changeScreen("Products2")}
+        onPress={() => changeScreen("Products3")}
       >
         <Text style={styles.buttonText}>Card 3</Text>
       </TouchableOpacity>
@@ -60,10 +55,11 @@ const ProductsMenu = () => {
       <TouchableOpacity
         style={[
           styles.button,
-          styles.successButton,
+          styles.infoButton,
+          selected === 4 && styles.selectedButton,
           isPressed("success") && styles.buttonPressed,
         ]}
-        onPress={() => changeScreen("Products2")}
+        onPress={() => changeScreen("Products4")}
       >
         <Text style={styles.buttonText}>Card 4</Text>
       </TouchableOpacity>
@@ -84,37 +80,25 @@ const styles = StyleSheet.create({
   button: {
     justifyContent: "center",
     alignItems: "center",
-    width: 80,
-    height: 46,
-    borderRadius: 6,
-    borderWidth: 0.2,
+    width: 97,
+    height: 40,
+    borderRadius: 0,
+    borderWidth: 0.3,
     borderColor: "#eee",
-    borderBottomWidth: 4,
+    borderBottomWidth: 2,
     marginVertical: 10,
-    shadowOffset: { width: 0, height: 1 },
+    shadowOffset: { width: 0, height: 0.5 },
     shadowOpacity: 0.5,
-    shadowRadius: 3,
-    elevation: 2,
-  },
-  infoButton: {
+    shadowRadius: 1,
+    elevation: 1,
     backgroundColor: "#2196f3",
     borderColor: "#0e3860",
     shadowColor: "#1c5da6",
   },
-  dangerButton: {
-    backgroundColor: "#f44336",
-    borderColor: "#c4211d",
+  selectedButton: {
+    backgroundColor: "#1175c4",
+    borderColor: "#0e3860",
     shadowColor: "#1c5da6",
-  },
-  warningButton: {
-    backgroundColor: "#ff9800",
-    borderColor: "#b87208",
-    shadowColor: "#1c5da6",
-  },
-  successButton: {
-    backgroundColor: "#4caf50",
-    borderColor: "#2c6e3c",
-    shadowColor: "#3aa245",
   },
   buttonText: {
     fontSize: 14,

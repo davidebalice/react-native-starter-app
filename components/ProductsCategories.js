@@ -1,48 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, StyleSheet, View, TouchableOpacity } from "react-native";
 import {
-  Avatar,
-  Button,
-  Card,
-  Text,
-  Title,
-  Paragraph,
-} from "react-native-paper";
+  ScrollView,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  ImageBackground,
+} from "react-native";
+import { Avatar, Button, Card, Text, Paragraph } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
+import API_URLS from "../config";
 
 const ProductsCategories = () => {
-  const categories = [
-    { id: 1, title: "Categoria 1", description: "Descrizione categoria 1" },
-    { id: 2, title: "Categoria 2", description: "Descrizione categoria 2" },
-    { id: 2, title: "Categoria 2", description: "Descrizione categoria 2" },
-    { id: 2, title: "Categoria 2", description: "Descrizione categoria 2" },
-    { id: 2, title: "Categoria 2", description: "Descrizione categoria 2" },
-  ];
-
-  return (
-    <ScrollView horizontal>
-      {categories.map((category) => (
-        <Card key={category.id} style={{ margin: 10, width: 200 }}>
-          <Card.Content>
-            <Title>{category.title}</Title>
-            <Paragraph>{category.description}</Paragraph>
-          </Card.Content>
-        </Card>
-      ))}
-    </ScrollView>
-  );
-
-  /*
   const [data, setData] = useState([]);
-  const navigation = useNavigation();
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("https://fakestoreapi.com/products", {
+      const response = await axios.get(API_URLS.productApi, {
         httpsAgent: {
           rejectUnauthorized: false,
         },
@@ -58,35 +35,42 @@ const ProductsCategories = () => {
     }
   };
 
-  const goToProductDetail = (productId) => {
-    navigation.navigate("Product", { productId });
+  const goToCategory = (category) => {
+    navigation.navigate("Product", { category });
   };
 
+  const uniqueCategories = [
+    ...new Map(data.map((item) => [item["category"], item])).values(),
+  ];
+
   return (
-    <View style={styles.container}>
-      {data &&
-        data.map((item, index) => (
-          <Card key={index} style={styles.card}>
-            <Card.Content style={styles.cardContent}>
-              <TouchableOpacity onPress={() => goToProductDetail(item.id)}>
-                <View style={styles.imageContainer}>
-                  <Image
-                    source={{ uri: item.image }}
-                    style={styles.image}
-                    resizeMode="cover"
-                  />
-                </View>
-                <View style={styles.dataContainer}>
-                  <Paragraph>{item.name}</Paragraph>
-                  <Paragraph>{item.title}</Paragraph>
-                  <Paragraph>{item.price}</Paragraph>
-                </View>
-              </TouchableOpacity>
-            </Card.Content>
-          </Card>
-        ))}
-    </View>
-  );*/
+    <ScrollView horizontal>
+      {uniqueCategories.map((category) => (
+        <ImageBackground
+          style={styles.card}
+          resizeMode="cover"
+          key={category.id}
+          source={
+            category.category === "jewelery"
+              ? require(`../assets/img/jewelery.jpg`)
+              : category.category === "men's clothing"
+              ? require(`../assets/img/mensclothing.jpg`)
+              : category.category === "women's clothing"
+              ? require(`../assets/img/womensclothing.jpg`)
+              : category.category === "electronics"
+              ? require(`../assets/img/electronics.jpg`)
+              : require(`../assets/img/jewelery.jpg`)
+          }
+        >
+          <View style={styles.textContainer}>
+            <Text style={styles.text}>{category.category}</Text>
+          </View>
+
+          <View style={styles.overlay}></View>
+        </ImageBackground>
+      ))}
+    </ScrollView>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -99,32 +83,36 @@ const styles = StyleSheet.create({
     padding: 0,
   },
   card: {
-    width: "46%",
-    margin: "2%",
+    margin: 14,
+    marginLeft: 0,
+    width: 150,
+    height: 70,
+    overflow: "hidden",
     borderColor: "#ddd",
-    backgroundColor: "#ffffff",
     borderWidth: 1,
-    overflow: "hidden",
+    borderRadius: 4,
   },
-  cardContent: {
-    width: "100%",
-    backgroundColor: "#ffffff",
-    margin: 0,
-    paddingHorizontal: 0,
-    paddingVertical: 0,
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "black",
+    opacity: 0.5,
   },
-  imageContainer: {
-    width: "100%",
-    aspectRatio: 16 / 20,
-    overflow: "hidden",
+  textContainer: {
+    position: "absolute",
+    top: "35%",
+    alignSelf: "center",
+    zIndex: 1,
   },
-  image: {
+  text: {
+    color: "#ffffff",
+    textAlign: "center",
+    display: "flex",
+    fontSize: 13,
+    fontWeight: "bold",
+    alignItems: "center",
+    justifyContent: "center",
     width: "100%",
     height: "100%",
-  },
-  dataContainer: {
-    paddingHorizontal: 10,
-    paddingVertical: 10,
   },
 });
 

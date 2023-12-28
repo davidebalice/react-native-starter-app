@@ -8,10 +8,11 @@ import {
   Alert,
   FlatList,
 } from "react-native";
+import ProductsMenu from "../components/ProductsMenu";
 import axios from "axios";
 import API_URLS from "../config";
 
-export default Store = () => {
+export default ProductList = () => {
   const data = [
     {
       id: 1,
@@ -83,6 +84,7 @@ export default Store = () => {
 
   return (
     <View style={styles.container}>
+      <ProductsMenu selected={2} />
       <FlatList
         style={styles.list}
         contentContainerStyle={styles.listContainer}
@@ -150,7 +152,8 @@ export default Store = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
+    padding: 10,
+    backgroundColor: "#fff",
   },
   list: {
     paddingHorizontal: 5,
