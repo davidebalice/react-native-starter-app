@@ -1,11 +1,13 @@
-import React, { useContext } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import React, { useContext, useState } from "react";
+import { View, Image, TouchableOpacity, Button } from "react-native";
+import InfoModal from "./InfoModal";
 import Icon from "react-native-vector-icons/FontAwesome";
+import Icon2 from "react-native-vector-icons/FontAwesome5";
 import ThemeContext from "../context/themeContext";
 
 const Appbar = ({ onLeftPress, onRightPress, openDrawer }) => {
   const { theme } = useContext(ThemeContext);
-
+  const [modalVisible, setModalVisible] = useState(false);
   const styles = {
     container: {
       flexDirection: "row",
@@ -39,6 +41,10 @@ const Appbar = ({ onLeftPress, onRightPress, openDrawer }) => {
 
   return (
     <View style={styles.container}>
+      <InfoModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
       <TouchableOpacity onPress={onLeftPress} style={styles.iconContainer}>
         <Icon
           name="bars"
@@ -56,10 +62,14 @@ const Appbar = ({ onLeftPress, onRightPress, openDrawer }) => {
         />
       </View>
 
-      <TouchableOpacity
-        onPress={onRightPress}
-        style={styles.iconContainer}
-      ></TouchableOpacity>
+      <TouchableOpacity style={styles.iconContainer}>
+        <Icon2
+          name="info-circle"
+          size={34}
+          color={theme.colors.text}
+          onPress={() => setModalVisible(true)}
+        />
+      </TouchableOpacity>
     </View>
   );
 };

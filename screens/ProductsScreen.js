@@ -13,6 +13,8 @@ import { Card, Paragraph } from "react-native-paper";
 import axios from "axios";
 import API_URLS from "../config";
 import ProductsMenu from "../components/ProductsMenu";
+import SearchBar from "../components/SearchBar";
+import ProductsCategories from "../components/ProductsCategories";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -64,12 +66,8 @@ const ProductList = () => {
   return (
     <View style={styles.container}>
       <ProductsMenu selected={1} />
-      <TextInput
-        style={styles.searchInput}
-        placeholder="Search products..."
-        onChangeText={handleSearch}
-        value={searchQuery}
-      />
+      <SearchBar handleSearch={handleSearch} searchQueryn={searchQuery} />
+      <ProductsCategories card={1} />
       <ScrollView>
         <View style={styles.CardContainer}>
           {filteredProducts &&

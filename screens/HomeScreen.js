@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
-import { Avatar, Button, Card, Text} from "react-native-paper";
+import { Avatar, Button, Card, Text } from "react-native-paper";
 import Slideshow from "../components/Slideshow";
 import ProductsHome from "../components/ProductsHome";
-import ProductsCategories from "../components/ProductsCategories";
+import ProductsCategoriesHome from "../components/ProductsCategoriesHome";
 const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />;
 
 const HomeScreen = () => {
@@ -11,7 +11,7 @@ const HomeScreen = () => {
     <ScrollView>
       <View style={styles.container}>
         <Slideshow />
-        <ProductsCategories />
+        <ProductsCategoriesHome />
         <ProductsHome />
         <Card style={styles.card}>
           <Card.Title
@@ -36,9 +36,7 @@ const HomeScreen = () => {
             height: 100,
             padding: 20,
           }}
-        >
-          
-        </View>
+        ></View>
       </View>
     </ScrollView>
   );
