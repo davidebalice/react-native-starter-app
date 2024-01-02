@@ -8,87 +8,84 @@ import {
   Alert,
   FlatList,
 } from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import ProductsMenu from "../components/ProductsMenu";
+import SearchBar from "../components/SearchBar";
+import ProductsCategories from "../components/ProductsCategories";
 import axios from "axios";
 import API_URLS from "../config";
 
 export default ProductList = () => {
-  const data = [
-    {
-      id: 1,
-      title: "Product 1",
-      price: "$ 25.00 USD",
-      image: "https://bootdey.com/image/400x200/FFB6C1/000000",
-    },
-    {
-      id: 2,
-      title: "Product 2",
-      price: "$ 10.13 USD",
-      image: "https://bootdey.com/image/400x200/FA8072/000000",
-    },
-    {
-      id: 3,
-      title: "Product 3",
-      price: "$ 12.12 USD",
-      image: "https://bootdey.com/image/400x200/87CEEB/000000",
-    },
-    {
-      id: 4,
-      title: "Product 4",
-      price: "$ 11.00 USD",
-      image: "https://bootdey.com/image/400x200/4682B4/000000",
-    },
-    {
-      id: 5,
-      title: "Product 5",
-      price: "$ 20.00 USD",
-      image: "https://bootdey.com/image/400x200/008080/000000",
-    },
-    {
-      id: 6,
-      title: "Product 6",
-      price: "$ 33.00 USD",
-      image: "https://bootdey.com/image/400x200/40E0D0/000000",
-    },
-    {
-      id: 7,
-      title: "Product 7",
-      price: "$ 20.95 USD",
-      image: "https://bootdey.com/image/400x200/EE82EE/000000",
-    },
-    {
-      id: 8,
-      title: "Product 8",
-      price: "$ 13.60 USD",
-      image: "https://bootdey.com/image/400x200/48D1CC/000000",
-    },
-    {
-      id: 9,
-      title: "Product 9",
-      price: "$ 15.30 USD",
-      image: "https://bootdey.com/image/400x200/191970/000000",
-    },
-    {
-      id: 9,
-      title: "Product 10",
-      price: "$ 21.30 USD",
-      image: "https://bootdey.com/image/400x200/7B68EE/000000",
-    },
-  ];
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigation = useNavigation();
+  const route = useRoute();
+  const category = route.params?.category;
 
-  const [products, setProducts] = useState(data);
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get(API_URLS.productApi, {
+        httpsAgent: {
+          rejectUnauthorized: false,
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-  addProductToCart = () => {
-    Alert.alert("Success", "The product has been added to your cart");
+      setProducts(response.data);
+      setFilteredProducts(response.data);
+    } catch (error) {
+      console.log("error:" + error);
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    if (category) {
+      filterProductsByCategory(category);
+    }
+  }, [category]);
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    const filtered = products.filter((product) =>
+      product.title.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredProducts(filtered);
+  };
+
+  const filterProductsByCategory = (category) => {
+    const filtered = products.filter(
+      (product) => product.category === category
+    );
+    setFilteredProducts(filtered);
+  };
+
+  const goToProductDetail = (productId) => {
+    navigation.navigate("Product", { productId });
+  };
+
+  const formattedPrice = (price) => {
+    return price.toLocaleString("it-IT", {
+      minimumFractionDigits: 2,
+    });
   };
 
   return (
     <View style={styles.container}>
       <ProductsMenu selected={2} />
+      <SearchBar handleSearch={handleSearch} searchQueryn={searchQuery} />
+      <ProductsCategories card={2} category={category} />
       <FlatList
         style={styles.list}
         contentContainerStyle={styles.listContainer}
-        data={products}
+        data={filteredProducts}
         horizontal={false}
         numColumns={2}
         keyExtractor={(item) => {
@@ -115,7 +112,7 @@ export default ProductList = () => {
                   <View style={styles.socialBarSection}>
                     <TouchableOpacity
                       style={styles.socialBarButton}
-                      onPress={addProductToCart}
+                      onPress={null}
                     >
                       <Image
                         style={styles.icon}

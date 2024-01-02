@@ -9,44 +9,81 @@ import {
   FlatList,
   Button,
 } from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import ProductsMenu from "../components/ProductsMenu";
+import SearchBar from "../components/SearchBar";
+import ProductsCategories from "../components/ProductsCategories";
 import axios from "axios";
 import API_URLS from "../config";
 
 const ProductListView = () => {
-  const products = [
-    {
-      id: "1",
-      name: "Product 1",
-      price: "$99.99",
-      image: "https://via.placeholder.com/640x640/00BFFF/000000",
-    },
-    {
-      id: "2",
-      name: "Product 2",
-      price: "$129.99",
-      image: "https://via.placeholder.com/640x640/F08080/000000",
-    },
-    {
-      id: "3",
-      name: "Product 3",
-      price: "$149.99",
-      image: "https://via.placeholder.com/640x640/20B2AA/000000",
-    },
-    {
-      id: "4",
-      name: "Product 4",
-      price: "$149.99",
-      image: "https://via.placeholder.com/640x640/FF00FF/000000",
-    },
-  ];
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigation = useNavigation();
+  const route = useRoute();
+  const category = route.params?.category;
+
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get(API_URLS.productApi, {
+        httpsAgent: {
+          rejectUnauthorized: false,
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      setProducts(response.data);
+      setFilteredProducts(response.data);
+    } catch (error) {
+      console.log("error:" + error);
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    if (category) {
+      filterProductsByCategory(category);
+    }
+  }, [category]);
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    const filtered = products.filter((product) =>
+      product.title.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredProducts(filtered);
+  };
+
+  const filterProductsByCategory = (category) => {
+    const filtered = products.filter(
+      (product) => product.category === category
+    );
+    setFilteredProducts(filtered);
+  };
+
+  const goToProductDetail = (productId) => {
+    navigation.navigate("Product", { productId });
+  };
+
+  const formattedPrice = (price) => {
+    return price.toLocaleString("it-IT", {
+      minimumFractionDigits: 2,
+    });
+  };
 
   const renderProduct = ({ item }) => {
     return (
       <View style={styles.product}>
         <Image style={styles.image} source={{ uri: item.image }} />
         <View style={styles.info}>
-          <Text style={styles.name}>{item.name}</Text>
+          <Text style={styles.name}>{item.title}</Text>
           <Text style={styles.price}>{item.price}</Text>
         </View>
         <Button title="Add to Cart" onPress={() => {}} />
@@ -55,15 +92,26 @@ const ProductListView = () => {
   };
 
   return (
-    <FlatList
-      data={products}
-      renderItem={renderProduct}
-      keyExtractor={(item) => item.id}
-    />
+    <View style={styles.container}>
+      <ProductsMenu selected={4} />
+      <SearchBar handleSearch={handleSearch} searchQueryn={searchQuery} />
+      <ProductsCategories card={4} category={category} />
+
+      <FlatList
+        data={filteredProducts}
+        renderItem={renderProduct}
+        keyExtractor={(item) => item.id}
+      />
+    </View>
   );
 };
 
 const styles = {
+  container: {
+    flex: 1,
+    padding: 10,
+    backgroundColor: "#f1f1f1",
+  },
   product: {
     backgroundColor: "#fff",
     margin: 10,

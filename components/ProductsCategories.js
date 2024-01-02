@@ -13,9 +13,10 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import axios from "axios";
 import API_URLS from "../config";
 
-const ProductsCategories = ({ card }) => {
+const ProductsCategories = ({ card, category }) => {
   const [data, setData] = useState([]);
   const [showCat, setShowCat] = useState(false);
+  const navigation = useNavigation();
   useEffect(() => {
     fetchData();
   }, []);
@@ -39,16 +40,30 @@ const ProductsCategories = ({ card }) => {
   };
 
   const goToCategory = (category) => {
-    navigation.navigate("Product", { category });
+    if (card === 2) {
+      navigation.navigate("Products" + card, { category });
+    } else {
+      navigation.navigate("Products", { category });
+    }
   };
 
   const uniqueCategories = [
     ...new Map(data.map((item) => [item["category"], item])).values(),
   ];
 
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
   return (
     <>
       <View style={styles.row}>
+        {category ? (
+          <Text style={styles.category}>{capitalizeFirstLetter(category)}</Text>
+        ) : (
+          <Text></Text>
+        )}
+
         <TouchableOpacity
           style={styles.button}
           onPress={() => setShowCat(!showCat)}
@@ -74,27 +89,29 @@ const ProductsCategories = ({ card }) => {
       {showCat && (
         <ScrollView horizontal style={styles.container}>
           {uniqueCategories.map((category) => (
-            <ImageBackground
-              style={styles.card}
-              resizeMode="cover"
-              key={category.id}
-              source={
-                category.category === "jewelery"
-                  ? require(`../assets/img/jewelery.jpg`)
-                  : category.category === "men's clothing"
-                  ? require(`../assets/img/mensclothing.jpg`)
-                  : category.category === "women's clothing"
-                  ? require(`../assets/img/womensclothing.jpg`)
-                  : category.category === "electronics"
-                  ? require(`../assets/img/electronics.jpg`)
-                  : require(`../assets/img/jewelery.jpg`)
-              }
-            >
-              <View style={styles.textContainer}>
-                <Text style={styles.text}>{category.category}</Text>
-              </View>
-              <View style={styles.overlay}></View>
-            </ImageBackground>
+            <TouchableOpacity onPress={() => goToCategory(category.category)}>
+              <ImageBackground
+                style={styles.card}
+                resizeMode="cover"
+                key={category.id}
+                source={
+                  category.category === "jewelery"
+                    ? require(`../assets/img/jewelery.jpg`)
+                    : category.category === "men's clothing"
+                    ? require(`../assets/img/mensclothing.jpg`)
+                    : category.category === "women's clothing"
+                    ? require(`../assets/img/womensclothing.jpg`)
+                    : category.category === "electronics"
+                    ? require(`../assets/img/electronics.jpg`)
+                    : require(`../assets/img/jewelery.jpg`)
+                }
+              >
+                <View style={styles.textContainer}>
+                  <Text style={styles.text}>{category.category}</Text>
+                </View>
+                <View style={styles.overlay}></View>
+              </ImageBackground>
+            </TouchableOpacity>
           ))}
         </ScrollView>
       )}
@@ -105,7 +122,7 @@ const ProductsCategories = ({ card }) => {
 const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 0,
     marginRight: 6,
@@ -150,6 +167,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "100%",
     height: "100%",
+  },
+  category: {
+    marginLeft: 5,
+    fontWeight: "bold",
   },
   button: {
     flexDirection: "row",

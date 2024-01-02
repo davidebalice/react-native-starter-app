@@ -8,7 +8,10 @@ import {
   Alert,
   FlatList,
 } from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import ProductsMenu from "../components/ProductsMenu";
+import SearchBar from "../components/SearchBar";
+import ProductsCategories from "../components/ProductsCategories";
 import axios from "axios";
 import API_URLS from "../config";
 
@@ -38,108 +41,65 @@ const ProductCard = ({ item, onIncrement, onDecrement }) => {
 };
 
 const ProductList = () => {
-  const [products, setProducts] = useState([
-    {
-      id: 1,
-      name: "Hamburger",
-      description: "Juicy beef patty on a fresh bun with all the fixings",
-      price: 5.99,
-      image: "https://source.unsplash.com/900x900/?burger",
-      amount: 0,
-    },
-    {
-      id: 2,
-      name: "Pizza",
-      description: "Freshly made pizza with your choice of toppings",
-      price: 9.99,
-      image: "https://source.unsplash.com/900x900/?pizza",
-      amount: 0,
-    },
-    {
-      id: 3,
-      name: "Salad",
-      description: "Fresh greens and veggies with your choice of dressing",
-      price: 4.99,
-      image: "https://source.unsplash.com/900x900/?salad",
-      amount: 0,
-    },
-    {
-      id: 4,
-      name: "Fries",
-      description: "Crispy and delicious, perfect as a side or on their own",
-      price: 2.99,
-      image: "https://source.unsplash.com/900x900/?fries",
-      amount: 0,
-    },
-    {
-      id: 5,
-      name: "Ice Cream",
-      description: "Rich and creamy, the perfect dessert any time of day",
-      price: 3.99,
-      image: "https://source.unsplash.com/900x900/?icecream",
-      amount: 0,
-    },
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigation = useNavigation();
+  const route = useRoute();
+  const category = route.params?.category;
 
-    {
-      id: 6,
-      name: "Big Hamburger",
-      description: "Juicy beef patty on a fresh bun with all the fixings",
-      price: 5.99,
-      image: "https://source.unsplash.com/900x900/?burger",
-      amount: 0,
-    },
-    {
-      id: 7,
-      name: "Big Pizza ",
-      description: "Freshly made pizza with your choice of toppings",
-      price: 9.99,
-      image: "https://source.unsplash.com/900x900/?pizza",
-      amount: 0,
-    },
-    {
-      id: 8,
-      name: "Big Salad",
-      description: "Fresh greens and veggies with your choice of dressing",
-      price: 4.99,
-      image: "https://source.unsplash.com/900x900/?salad",
-      amount: 0,
-    },
-    {
-      id: 9,
-      name: "Big Fries",
-      description: "Crispy and delicious, perfect as a side or on their own",
-      price: 2.99,
-      image: "https://source.unsplash.com/900x900/?fries",
-      amount: 0,
-    },
-    {
-      id: 10,
-      name: "Big Ice Cream",
-      description: "Rich and creamy, the perfect dessert any time of day",
-      price: 3.99,
-      image: "https://source.unsplash.com/900x900/?icecream",
-      amount: 0,
-    },
-  ]);
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get(API_URLS.productApi, {
+        httpsAgent: {
+          rejectUnauthorized: false,
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-  const handleIncrement = (item) => {
-    setProducts(
-      products.map((product) =>
-        product.id === item.id
-          ? { ...product, amount: product.amount + 1 }
-          : product
-      )
-    );
+      setProducts(response.data);
+      setFilteredProducts(response.data);
+    } catch (error) {
+      console.log("error:" + error);
+      console.error(error);
+    }
   };
 
-  const handleDecrement = (item) => {
-    setProducts(
-      products.map((product) =>
-        product.id === item.id
-          ? { ...product, amount: Math.max(0, product.amount - 1) }
-          : product
-      )
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    if (category) {
+      filterProductsByCategory(category);
+    }
+  }, [category]);
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    const filtered = products.filter((product) =>
+      product.title.toLowerCase().includes(query.toLowerCase())
     );
+    setFilteredProducts(filtered);
+  };
+
+  const filterProductsByCategory = (category) => {
+    const filtered = products.filter(
+      (product) => product.category === category
+    );
+    setFilteredProducts(filtered);
+  };
+
+  const goToProductDetail = (productId) => {
+    navigation.navigate("Product", { productId });
+  };
+
+  const formattedPrice = (price) => {
+    return price.toLocaleString("it-IT", {
+      minimumFractionDigits: 2,
+    });
   };
 
   const renderProductItem = ({ item }) => (
@@ -152,8 +112,11 @@ const ProductList = () => {
 
   return (
     <View style={styles.container}>
+      <ProductsMenu selected={3} />
+      <SearchBar handleSearch={handleSearch} searchQueryn={searchQuery} />
+      <ProductsCategories card={3} category={category} />
       <FlatList
-        data={products}
+        data={filteredProducts}
         style={styles.productList}
         renderItem={renderProductItem}
         keyExtractor={(item) => item.id.toString()}
@@ -169,8 +132,8 @@ const ProductList = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f7f7f7",
-    paddingTop: 40,
+    padding: 10,
+    backgroundColor: "#f1f1f1",
   },
   productList: {
     flex: 1,

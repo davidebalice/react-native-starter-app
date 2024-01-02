@@ -82,6 +82,14 @@ const SideMenu = ({ navigation, closeDrawer }) => {
 
         <TouchableOpacity
           style={{ flexDirection: "row", alignItems: "center", padding: 10 }}
+          onPress={() => changeScreen("List")}
+        >
+          <Icon2 name="text" size={20} color="#111" />
+          <Text style={{ marginLeft: 20, color: "#111" }}>List</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{ flexDirection: "row", alignItems: "center", padding: 10 }}
           onPress={() => changeScreen("Login")}
         >
           <Icon2 name="text" size={20} color="#111" />
@@ -103,8 +111,6 @@ const SideMenu = ({ navigation, closeDrawer }) => {
           <Icon2 name="text" size={20} color="#111" />
           <Text style={{ marginLeft: 20, color: "#111" }}>Theme settings</Text>
         </TouchableOpacity>
-
-     
 
         <Spacer height={200} />
       </ScrollView>

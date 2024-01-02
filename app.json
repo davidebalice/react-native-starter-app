@@ -1,11 +1,9 @@
 {
   "expo": {
-    "name": "menu",
-    "slug": "menu",
-    "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "name": "react-native-starter-app",
+    "slug": "react-native-starter-app",
+    "version": "1.0.3",
+    "assetBundlePatterns": ["**/*"]
   },
-  "name": "menu"
+  "name": "react-native-starter-app"
 }

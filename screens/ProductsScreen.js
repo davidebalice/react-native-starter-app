@@ -2,13 +2,12 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
-  TextInput,
   ScrollView,
   Image,
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { Card, Paragraph } from "react-native-paper";
 import axios from "axios";
 import API_URLS from "../config";
@@ -21,6 +20,8 @@ const ProductList = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const navigation = useNavigation();
+  const route = useRoute();
+  const category = route.params?.category;
 
   const fetchProducts = async () => {
     try {
@@ -45,10 +46,23 @@ const ProductList = () => {
     fetchProducts();
   }, []);
 
+  useEffect(() => {
+    if (category) {
+      filterProductsByCategory(category);
+    }
+  }, [category]);
+
   const handleSearch = (query) => {
     setSearchQuery(query);
     const filtered = products.filter((product) =>
       product.title.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredProducts(filtered);
+  };
+
+  const filterProductsByCategory = (category) => {
+    const filtered = products.filter(
+      (product) => product.category === category
     );
     setFilteredProducts(filtered);
   };
@@ -67,7 +81,7 @@ const ProductList = () => {
     <View style={styles.container}>
       <ProductsMenu selected={1} />
       <SearchBar handleSearch={handleSearch} searchQueryn={searchQuery} />
-      <ProductsCategories card={1} />
+      <ProductsCategories card={1} category={category}/>
       <ScrollView>
         <View style={styles.CardContainer}>
           {filteredProducts &&
