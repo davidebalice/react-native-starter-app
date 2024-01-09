@@ -1,4 +1,4 @@
-package com.menu;
+package com.starterapp;
 
 import android.os.Build;
 import android.os.Bundle;

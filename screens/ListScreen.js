@@ -15,8 +15,8 @@ import Icon2 from "react-native-vector-icons/MaterialIcons";
 const ListScreen = () => {
   const [item, setItem] = useState("");
   const [items, setItems] = useState([
-    { item: "Lorem amet dolore ipsum do aliquip ipsum.", key: "1" },
-    { item: "Incididunt elit quis fugiat cillum sit voluptate. ", key: "2" },
+    { item: "Lorem amet dolore ipsum do aliquip ipsum.", key: "0" },
+    { item: "Incididunt elit quis fugiat cillum sit voluptate. ", key: "1" },
   ]);
   const panelHeight = useRef(new Animated.Value(0)).current;
 
@@ -63,8 +63,6 @@ const ListScreen = () => {
     }).start();
   };
 
-  console.log(items);
-
   return (
     <View style={styles.container}>
       <View style={styles.floatingButtonContainer}>
@@ -91,7 +89,7 @@ const ListScreen = () => {
         style={styles.list}
         data={items}
         renderItem={({ item }) => (
-          <View style={styles.listItem}>
+          <View style={styles.card}>
             <Text>{item.item}</Text>
             <TouchableOpacity onPress={() => removeItem(item.key)}>
               <Icon2
@@ -150,18 +148,7 @@ const styles = StyleSheet.create({
   },
   list: {
     marginTop: 10,
-    backgroundColor: "#ffffff",
-    padding: 10,
-  },
-  listItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: 10,
-    marginVertical: 5,
-    backgroundColor: "#fff",
-    borderBottomWidth: 1,
-    borderColor: "#ddd",
+    width:"100%"
   },
   floatingButtonContainer: {
     position: "absolute",
@@ -173,7 +160,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 25,
     color: "#ffffff",
-    backgroundColor: "#333333",
+    backgroundColor: "#0fa327",
     alignItems: "center",
     justifyContent: "center",
     elevation: 5,
@@ -203,6 +190,138 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#dddddd",
   },
+  card: {
+    width:"100%",
+    shadowColor: "#000000",
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.30,
+    shadowRadius: 10,
+    elevation: 7,
+    marginVertical: 7,
+    marginHorizontal: 0,
+    backgroundColor: "white",
+    flexBasis: "46%",
+    padding: 10,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    borderLeftWidth: 6,
+    borderRightWidth: 1,
+    borderLeftColor: "#0fa327",
+    borderRightColor: "#dddddd",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
 });
 
 export default ListScreen;
+
+/*
+import React, { useState } from 'react'
+import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList, Alert } from 'react-native'
+
+
+  const [posts, setPosts] = useState(data)
+
+  const clickEventListener = item => {
+    Alert.alert('Item selected: ' + item.description)
+  }
+
+  const __getCompletedIcon = item => {
+    if (item.completed == 1) {
+      return 'https://img.icons8.com/flat_round/64/000000/checkmark.png'
+    } else {
+      return 'https://img.icons8.com/color/70/000000/delete.png'
+    }
+  }
+
+  const __getDescriptionStyle = item => {
+    if (item.completed == 1) {
+      return { textDecorationLine: 'line-through', fontStyle: 'italic', color: '#808080' }
+    }
+  }
+
+  return (
+    <View style={styles.container}>
+      <FlatList
+        style={styles.tasks}
+        columnWrapperStyle={styles.listContainer}
+        data={posts}
+        keyExtractor={item => {
+          return item.id
+        }}
+        renderItem={({ item }) => {
+          return (
+            <TouchableOpacity
+              style={[styles.card, { borderColor: item.color }]}
+              onPress={() => clickEventListener(item)}>
+              <Image style={styles.image} source={{ uri: __getCompletedIcon(item) }} />
+              <View style={styles.cardContent}>
+                <Text style={[styles.description, __getDescriptionStyle(item)]}>
+                  {item.description}
+                </Text>
+                <Text style={styles.date}>{item.date}</Text>
+              </View>
+            </TouchableOpacity>
+          )
+        }}
+      />
+    </View>
+  )
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 20,
+    backgroundColor: '#eeeeee',
+  },
+  tasks: {
+    flex: 1,
+  },
+  cardContent: {
+    marginLeft: 20,
+    marginTop: 10,
+  },
+  image: {
+    width: 25,
+    height: 25,
+  },
+
+  card: {
+    shadowColor: '#00000021',
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.37,
+    shadowRadius: 7.49,
+    elevation: 12,
+
+    marginVertical: 10,
+    marginHorizontal: 20,
+    backgroundColor: 'white',
+    flexBasis: '46%',
+    padding: 10,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    borderLeftWidth: 6,
+  },
+
+  description: {
+    fontSize: 18,
+    flex: 1,
+    color: '#008080',
+    fontWeight: 'bold',
+  },
+  date: {
+    fontSize: 14,
+    flex: 1,
+    color: '#696969',
+    marginTop: 5,
+  },
+})
+*/

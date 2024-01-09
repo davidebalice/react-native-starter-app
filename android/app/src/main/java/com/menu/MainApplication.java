@@ -1,4 +1,4 @@
-package com.menu;
+package com.starterapp;
 
 import android.app.Application;
 import android.content.res.Configuration;

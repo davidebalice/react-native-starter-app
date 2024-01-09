@@ -2,10 +2,11 @@ import React, { useState, useContext } from "react";
 import {
   View,
   TextInput,
-  Button,
+  Image,
   Alert,
   StyleSheet,
   Text,
+  ScrollView,
   TouchableOpacity,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -62,6 +63,10 @@ const LoginScreen = () => {
 
   return (
     <View style={styles.container}>
+      <Image
+        style={styles.bgImage}
+        source={require("../assets/img/loginBg.jpg")}
+      />
       <View style={styles.loginBox}>
         <Text style={styles.paragraph}>Login</Text>
         <TextInput
@@ -80,11 +85,11 @@ const LoginScreen = () => {
         <TouchableOpacity onPress={handleLogin} style={styles.loginButton}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
-      </View>
-      <View style={styles.demoData}>
-        <Text style={styles.demoDataP}>Demo Data:</Text>
-        <Text style={styles.demoDataP2}>username: mariorossi</Text>
-        <Text style={styles.demoDataP2}>password: 12345678</Text>
+        <View style={styles.demoData}>
+          <Text style={styles.demoDataP}>Demo data:</Text>
+          <Text style={styles.demoDataP2}>username: mariorossi</Text>
+          <Text style={styles.demoDataP2}>password: 12345678</Text>
+        </View>
       </View>
     </View>
   );
@@ -95,16 +100,15 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    padding: 16,
   },
   loginBox: {
     alignItems: "center",
     justifyContent: "center",
     padding: 16,
-    backgroundColor: "#ffffff",
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
     width: "80%",
-    height: 240,
-    borderRadius: 16,
+    height: 290,
+    borderRadius: 8,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -115,8 +119,9 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   paragraph: {
-    padding: 16,
-    fontSize: 16,
+    padding: 12,
+    paddingTop: 0,
+    fontSize: 17,
     textAlign: "center",
     fontWeight: "bold",
   },
@@ -124,17 +129,20 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 40,
     borderColor: "gray",
-    borderWidth: 1,
-    marginBottom: 20,
+    borderBottomWidth: 1,
+    marginBottom: 10,
     paddingHorizontal: 10,
+    backgroundColor: "#ffffff",
   },
   loginButton: {
-    marginTop: 10,
+    width: "100%",
+    marginTop: 5,
     marginBottom: 10,
-    padding: 10,
+    padding: 8,
     backgroundColor: "#444",
     color: "#ffffff",
-    borderRadius: 6,
+    borderRadius: 2,
+    textAlign: "center",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -143,13 +151,20 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 3,
     elevation: 5,
+    justifyContent: "center",
   },
   buttonText: {
     color: "#ffffff",
+    textAlign: "center",
   },
   demoData: {
-    marginTop: 20,
+    marginTop: 5,
     textAlign: "center",
+    borderWidth: 1,
+    borderColor: "#dddddd",
+    padding: 2,
+    width: "100%",
+    backgroundColor: "#ffffff",
   },
   demoDataP: {
     marginTop: 1,
@@ -158,6 +173,15 @@ const styles = StyleSheet.create({
   },
   demoDataP2: {
     marginTop: 1,
+    textAlign: "center",
+  },
+  bgImage: {
+    flex: 1,
+    resizeMode: "cover",
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
   },
 });
 

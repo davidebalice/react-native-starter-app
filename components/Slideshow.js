@@ -46,7 +46,7 @@ const Slideshow = () => {
 };
 
 const styles = StyleSheet.create({
-  wrapper: { height: 380 },
+  wrapper: { height: 300 },
   slide: {
     flex: 1,
     justifyContent: "center",

@@ -3,7 +3,14 @@
     "name": "react-native-starter-app",
     "slug": "react-native-starter-app",
     "version": "1.0.3",
-    "assetBundlePatterns": ["**/*"]
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "a82ef6dc-92c2-4076-b203-e202304d5577"
+      }
+    }
   },
   "name": "react-native-starter-app"
 }

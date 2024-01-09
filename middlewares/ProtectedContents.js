@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Text, Alert, StyleSheet } from "react-native";
+import { Text, StyleSheet, View } from "react-native";
 import { AuthContext } from "../context/authContext";
 
 const ProtectedContents = ({ children }) => {
@@ -31,20 +31,26 @@ const ProtectedContents = ({ children }) => {
 
   const { token } = useContext(AuthContext);
 
-
   return token !== "" ? (
     <>{children}</>
   ) : (
-    <>
+    <View style={styles.container}>
       <Text style={styles.title}>Protected page</Text>
       <Text>You are not logged in.</Text>
-    </>
+    </View>
   );
 };
 
 export default ProtectedContents;
 
 const styles = StyleSheet.create({
+  container: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    marginTop: 50,
+  },
   title: {
     fontWeight: "bold",
     fontSize: 20,

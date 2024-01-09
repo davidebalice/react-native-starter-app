@@ -107,7 +107,11 @@ const ProductsCategories = ({ card, category }) => {
                 }
               >
                 <View style={styles.textContainer}>
-                  <Text style={styles.text}>{category.category}</Text>
+                  <Text style={styles.text}>
+                    {" "}
+                    {category.category.charAt(0).toUpperCase() +
+                      category.category.slice(1)}
+                  </Text>
                 </View>
                 <View style={styles.overlay}></View>
               </ImageBackground>

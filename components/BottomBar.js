@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import IconIonicons from "react-native-vector-icons/Ionicons";
+import Icon2 from "react-native-vector-icons/Ionicons";
 
 const BottomBar = () => {
   const navigation = useNavigation();
@@ -24,7 +24,7 @@ const BottomBar = () => {
           navigation.navigate("TextPage");
         }}
       >
-        <IconIonicons name="settings-sharp" size={24} color="#000" />
+        <Icon2 name="settings-sharp" size={24} color="#000" />
         <Text>Settings</Text>
       </TouchableOpacity>
     </View>

@@ -4,7 +4,9 @@ import { Avatar, Button, Card, Text } from "react-native-paper";
 import Slideshow from "../components/Slideshow";
 import ProductsHome from "../components/ProductsHome";
 import ProductsCategoriesHome from "../components/ProductsCategoriesHome";
-const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />;
+import InfoHome from "../components/InfoHome";
+import NewsHome from "../components/NewsHome";
+import Carousel from "../components/Carousel";
 
 const HomeScreen = () => {
   return (
@@ -13,28 +15,14 @@ const HomeScreen = () => {
         <Slideshow />
         <ProductsCategoriesHome />
         <ProductsHome />
-        <Card style={styles.card}>
-          <Card.Title
-            title="Card Title"
-            subtitle="Card Subtitle"
-            left={LeftContent}
-          />
-          <Card.Content>
-            <Text variant="titleLarge">Card title</Text>
-            <Text variant="bodyMedium">Card content</Text>
-          </Card.Content>
-          <Card.Cover source={{ uri: "https://picsum.photos/700" }} />
-          <Card.Actions>
-            <Button>Cancel</Button>
-            <Button>Ok</Button>
-          </Card.Actions>
-        </Card>
-
+        <InfoHome />
+        <NewsHome />
+        <Carousel />
         <View
           style={{
             flexDirection: "column",
-            height: 100,
-            padding: 20,
+            height: 70,
+            padding: 10,
           }}
         ></View>
       </View>

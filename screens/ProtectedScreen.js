@@ -1,5 +1,12 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  Image,
+  View,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import ProtectedContents from "../middlewares/ProtectedContents";
 import { AuthContext } from "../context/authContext";
 
@@ -9,7 +16,7 @@ const ProtectedScreen = () => {
       flex: 1,
       alignItems: "center",
       justifyContent: "center",
-      padding: 16,
+      padding: 6,
     },
     logoutButton: {
       marginTop: 20,
@@ -31,9 +38,71 @@ const ProtectedScreen = () => {
     },
     title: {
       fontWeight: "bold",
-      fontSize: 20,
+      fontSize: 17,
       color: "#1d9a10",
-      marginBottom: 10,
+      marginBottom: 5,
+    },
+    headerContainer: {
+      alignItems: "center",
+    },
+    coverPhoto: {
+      width: "100%",
+      height: 200,
+    },
+    profileContainer: {
+      alignItems: "center",
+      marginTop: -50,
+    },
+    profilePhoto: {
+      width: 100,
+      height: 100,
+      borderRadius: 50,
+    },
+    nameText: {
+      fontSize: 20,
+      fontWeight: "bold",
+      marginTop: 10,
+    },
+    bioContainer: {
+      padding: 15,
+    },
+    bioText: {
+      fontSize: 16,
+    },
+    statsContainer: {
+      flexDirection: "row",
+      marginTop: 20,
+      marginBottom: 20,
+    },
+    statContainer: {
+      alignItems: "center",
+      flex: 1,
+    },
+    statCount: {
+      fontSize: 20,
+      fontWeight: "bold",
+    },
+    statLabel: {
+      fontSize: 16,
+      color: "#999",
+    },
+    button: {
+      backgroundColor: "#0066cc",
+      borderRadius: 5,
+      padding: 10,
+      marginHorizontal: 20,
+    },
+    buttonText: {
+      fontSize: 15,
+      color: "#fff",
+      textAlign: "center",
+    },
+    topBar: {
+      display: "flex",
+      flexDirection: "row",
+      gap: 10,
+      alignItems: "center",
+      justifyContent:"space-around"
     },
   });
 
@@ -45,20 +114,54 @@ const ProtectedScreen = () => {
 
   return (
     <View style={styles.container}>
-      <ProtectedContents>
-        <Text style={styles.title}>Login successfully</Text>
-        <Text>This text is visibile only to user authenticated</Text>
-        <TouchableOpacity onPress={logout} style={styles.logoutButton}>
-          <Text style={styles.buttonText}>Logout</Text>
-        </TouchableOpacity>
-      </ProtectedContents>
-      <View
-        style={{
-          flexDirection: "row",
-          height: 100,
-          padding: 20,
-        }}
-      ></View>
+      <ScrollView>
+        <ProtectedContents>
+          <View style={styles.topBar}>
+            <View>
+              <Text style={styles.title}>Login successfully</Text>
+              <Text>This page is visibile only to user authenticated</Text>
+            </View>
+            <TouchableOpacity onPress={logout} style={styles.logoutButton}>
+              <Text style={styles.buttonText}>Logout</Text>
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              height: 10,
+              padding: 1,
+            }}
+          ></View>
+
+          <View style={styles.headerContainer}>
+            <Image
+              style={styles.coverPhoto}
+              source={{
+                uri: "https://www.bootdey.com/image/280x280/1E90FF/1E90FF",
+              }}
+            />
+            <View style={styles.profileContainer}>
+              <Image
+                style={styles.profilePhoto}
+                source={{
+                  uri: "https://www.bootdey.com/img/Content/avatar/avatar1.png",
+                }}
+              />
+              <Text style={styles.nameText}>Your Name</Text>
+            </View>
+          </View>
+          <View style={styles.bioContainer}>
+            <Text style={styles.bioText}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et
+              ullamcorper nisi.
+            </Text>
+          </View>
+         
+          <TouchableOpacity style={styles.button} onPress={null}>
+            <Text style={styles.buttonText}>Edit Profile</Text>
+          </TouchableOpacity>
+        </ProtectedContents>
+      </ScrollView>
     </View>
   );
 };

@@ -63,7 +63,10 @@ const ProductsCategoriesHome = () => {
           }
         >
           <View style={styles.textContainer}>
-            <Text style={styles.text}>{category.category}</Text>
+            <Text style={styles.text}>
+              {category.category.charAt(0).toUpperCase() +
+                category.category.slice(1)}
+            </Text>
           </View>
 
           <View style={styles.overlay}></View>
@@ -86,7 +89,7 @@ const styles = StyleSheet.create({
     margin: 14,
     marginLeft: 0,
     width: 150,
-    height: 70,
+    height: 100,
     overflow: "hidden",
     borderColor: "#ddd",
     borderWidth: 1,
@@ -99,7 +102,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     position: "absolute",
-    top: "35%",
+    top: "40%",
     alignSelf: "center",
     zIndex: 1,
   },

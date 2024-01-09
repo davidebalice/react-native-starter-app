@@ -1,26 +1,33 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
-const {width, height} = Dimensions.get('window');
-
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions,
+} from "react-native";
+const { width, height } = Dimensions.get("window");
 
 export default Carousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const items = [
     {
-      title: 'Item 1',
-      content: 'Item 1 Content',
-      image: 'https://www.bootdey.com/image/280x280/8A2BE2/000000',
+      title: "Item 1",
+      content: "Lorem ispum dolor est",
+      image: "https://www.aroundweb.it/react/starter-app/city1.jpg",
     },
     {
-      title: 'Item 2',
-      content: 'Item 2 Content',
-      image: 'https://www.bootdey.com/image/280x280/FF7F50/000000',
+      title: "Item 2",
+      content: "Lorem ispum dolor est",
+      image: "https://www.aroundweb.it/react/starter-app/city2.jpg",
     },
     {
-      title: 'Item 3',
-      content: 'Item 3 Content',
-      image: 'https://www.bootdey.com/image/280x280/00FFFF/000000',
+      title: "Item 3",
+      content: "Lorem ispum dolor est",
+      image: "https://www.aroundweb.it/react/starter-app/city3.jpg",
     },
   ];
 
@@ -41,7 +48,7 @@ export default Carousel = () => {
       >
         {items.map((item, index) => (
           <View key={index} style={styles.itemContainer}>
-            <Image source={{uri: item.image}} style={styles.image} />
+            <Image source={{ uri: item.image }} style={styles.image} />
             <View style={styles.textContainer}>
               <Text style={styles.title}>{item.title}</Text>
               <Text style={styles.content}>{item.content}</Text>
@@ -55,7 +62,7 @@ export default Carousel = () => {
             <View
               style={[
                 styles.dot,
-                { backgroundColor: index === activeIndex ? 'white' : 'gray' },
+                { backgroundColor: index === activeIndex ? "white" : "gray" },
               ]}
             />
           </TouchableOpacity>
@@ -67,55 +74,57 @@ export default Carousel = () => {
 
 const styles = StyleSheet.create({
   carouselContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    height:400,
+    alignItems: "center",
+    justifyContent: "center",
+    height: 420,
+    borderWith: 1,
+    borderColor: "#333333",
   },
   itemContainer: {
     width: width - 60,
-    height: height / 2,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginHorizontal: 30,
+    height: height / 1.5,
+    alignItems: "center",
+    justifyContent: "center",
+    marginHorizontal: 20,
   },
   image: {
-    width: '100%',
-    height: '60%',
-    resizeMode: 'cover',
+    width: "100%",
+    height: "70%",
+    resizeMode: "cover",
     borderRadius: 10,
   },
   textContainer: {
-    width: '90%',
+    width: "90%",
     padding: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0.6)',
+    backgroundColor: "rgba(255, 255, 255, 0.6)",
     borderRadius: 10,
-    position: 'absolute',
+    position: "absolute",
     bottom: 100,
-    alignItems: 'center',
+    alignItems: "center",
   },
   title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontSize: 17,
+    fontWeight: "bold",
+    textAlign: "center",
     marginBottom: 5,
   },
   content: {
     fontSize: 14,
-    textAlign: 'center',
+    textAlign: "center",
   },
   dotContainer: {
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    bottom: 10,
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    bottom: 5,
   },
   dot: {
-    width: 20,
-    height: 20,
+    width: 13,
+    height: 13,
     borderRadius: 10,
     margin: 5,
-    borderWidth:1
+    borderWidth: 1,
   },
 });

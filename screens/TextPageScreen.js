@@ -137,7 +137,7 @@ const TextPageScreen = () => {
             </Text>
           </View>
         </View>
-        <Spacer height={80}/>
+        <Spacer height={80} />
       </View>
     </ScrollView>
   );
@@ -158,9 +158,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   singleText: {
-    fontSize: 18,
+    fontSize: 15,
     marginBottom: 20,
     textAlign: "justify",
+    lineHeight: 22
   },
   columnsContainer: {
     flexDirection: "row",
@@ -172,9 +173,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   columnText: {
-    fontSize: 15,
+    fontSize: 14,
     marginBottom: 10,
     textAlign: "justify",
+    lineHeight: 22
   },
   spacer: {
     width: 20,
