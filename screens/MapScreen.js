@@ -88,7 +88,7 @@ const windowHeight = Dimensions.get("window").height;
 const Waiting_Driver_Screen = () => {
   const [currentLocation, setCurrentLocation] = useState(null);
   const [initialRegion, setInitialRegion] = useState(null);
-
+/*
   useEffect(() => {
     const getLocation = async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -111,10 +111,10 @@ const Waiting_Driver_Screen = () => {
 
     getLocation();
   }, []);
-
+*/
   return (
     <View style={styles.container}>
-      {initialRegion && (
+      {/*initialRegion && (
         <MapView style={styles.map} initialRegion={initialRegion}>
           {currentLocation && (
             <Marker
@@ -126,7 +126,7 @@ const Waiting_Driver_Screen = () => {
             />
           )}
         </MapView>
-      )}
+            )*/}
       <MapView style={styles.map}>
         <Marker
           coordinate={{

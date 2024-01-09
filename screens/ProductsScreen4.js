@@ -72,21 +72,23 @@ const ProductListView = () => {
     navigation.navigate("Product", { productId });
   };
 
-  const formattedPrice = (price) => {
-    return price.toLocaleString("it-IT", {
-      minimumFractionDigits: 2,
-    });
-  };
-
   const renderProduct = ({ item }) => {
+    const formattedPrice = (price) => {
+      return price.toLocaleString("it-IT", {
+        minimumFractionDigits: 2,
+      });
+    };
     return (
       <View style={styles.product}>
-        <Image style={styles.image} source={{ uri: item.image }} />
+        <Image
+          style={styles.image}
+          source={{ uri: item.image }}
+          resizeMode="contain"
+        />
         <View style={styles.info}>
-          <Text style={styles.name}>{item.title}</Text>
-          <Text style={styles.price}>{item.price}</Text>
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.price}>€ {formattedPrice(item.price)}</Text>
         </View>
-        <Button title="Add to Cart" onPress={() => {}} />
       </View>
     );
   };
@@ -125,14 +127,15 @@ const styles = {
   info: {
     marginTop: 20,
   },
-  name: {
-    fontSize: 24,
+  title: {
+    fontSize: 20,
     fontWeight: "bold",
     marginBottom: 10,
   },
   price: {
     fontSize: 18,
-    color: "#999",
+    fontWeight: "bold",
+    color: "#4caf50",
   },
 };
 

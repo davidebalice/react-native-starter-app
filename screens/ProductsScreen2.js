@@ -101,30 +101,22 @@ export default ProductList = () => {
               <View style={styles.cardHeader}>
                 <View>
                   <Text style={styles.title}>{item.title}</Text>
-                  <Text style={styles.price}>{item.price}</Text>
                 </View>
               </View>
 
-              <Image style={styles.cardImage} source={{ uri: item.image }} />
+              <View style={styles.cardImageContainer}>
+                <Image
+                  style={styles.cardImage}
+                  source={{ uri: item.image }}
+                  resizeMode="contain"
+                />
+              </View>
 
               <View style={styles.cardFooter}>
                 <View style={styles.socialBarContainer}>
-                  <View style={styles.socialBarSection}>
-                    <TouchableOpacity
-                      style={styles.socialBarButton}
-                      onPress={null}
-                    >
-                      <Image
-                        style={styles.icon}
-                        source={{
-                          uri: "https://img.icons8.com/nolan/96/3498db/add-shopping-cart.png",
-                        }}
-                      />
-                      <Text style={[styles.socialBarLabel, styles.buyNow]}>
-                        Buy Now
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
+                  <Text style={styles.price}>
+                    € {formattedPrice(item.price)}
+                  </Text>
                   <View style={styles.socialBarSection}>
                     <TouchableOpacity style={styles.socialBarButton}>
                       <Image
@@ -155,6 +147,7 @@ const styles = StyleSheet.create({
   list: {
     paddingHorizontal: 5,
     backgroundColor: "#E6E6E6",
+    marginTop: 10,
   },
   listContainer: {
     alignItems: "center",
@@ -162,7 +155,6 @@ const styles = StyleSheet.create({
   separator: {
     marginTop: 10,
   },
-  /******** card **************/
   card: {
     shadowColor: "#00000021",
     shadowOffset: {
@@ -198,18 +190,26 @@ const styles = StyleSheet.create({
   },
   cardImage: {
     flex: 1,
-    height: 150,
+    height: 140,
     width: null,
   },
-  /******** card components **************/
+  cardImageContainer: {
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: "#dddddd",
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
   title: {
-    fontSize: 18,
+    fontSize: 15,
     flex: 1,
+    height: 60,
+    overflow: "hidden",
   },
   price: {
     fontSize: 16,
-    color: "green",
-    marginTop: 5,
+    fontWeight: "bold",
+    color: "#4caf50",
   },
   buyNow: {
     color: "purple",
@@ -218,7 +218,6 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
   },
-  /******** social bar ******************/
   socialBarContainer: {
     justifyContent: "center",
     alignItems: "center",
@@ -238,6 +237,7 @@ const styles = StyleSheet.create({
   socialBarButton: {
     flexDirection: "row",
     justifyContent: "center",
+    gap: 1,
     alignItems: "center",
   },
 });

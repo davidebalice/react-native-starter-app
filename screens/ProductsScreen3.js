@@ -16,25 +16,22 @@ import axios from "axios";
 import API_URLS from "../config";
 
 const ProductCard = ({ item, onIncrement, onDecrement }) => {
+  const formattedPrice = (price) => {
+    return price.toLocaleString("it-IT", {
+      minimumFractionDigits: 2,
+    });
+  };
   return (
     <View style={styles.productCard}>
-      <Image source={{ uri: item.image }} style={styles.productImage} />
+      <Image
+        source={{ uri: item.image }}
+        style={styles.productImage}
+        resizeMode="contain"
+      />
       <View style={styles.productInfo}>
-        <Text style={styles.productName}>{item.name}</Text>
+        <Text style={styles.productTitle}>{item.title}</Text>
         <Text style={styles.productDescription}>{item.description}</Text>
-        <Text style={styles.productPrice}>
-          ${item.price.toFixed(2)}{" "}
-          <Text style={styles.productPriceText}>per item</Text>
-        </Text>
-      </View>
-      <View style={styles.productAmount}>
-        <TouchableOpacity style={styles.amountButton} onPress={onDecrement}>
-          <Text style={styles.amountButtonText}>-</Text>
-        </TouchableOpacity>
-        <Text style={styles.amountText}>{item.amount}</Text>
-        <TouchableOpacity style={styles.amountButton} onPress={onIncrement}>
-          <Text style={styles.amountButtonText}>+</Text>
-        </TouchableOpacity>
+        <Text style={styles.productPrice}>€ {formattedPrice(item.price)}</Text>
       </View>
     </View>
   );
@@ -96,12 +93,6 @@ const ProductList = () => {
     navigation.navigate("Product", { productId });
   };
 
-  const formattedPrice = (price) => {
-    return price.toLocaleString("it-IT", {
-      minimumFractionDigits: 2,
-    });
-  };
-
   const renderProductItem = ({ item }) => (
     <ProductCard
       item={item}
@@ -122,9 +113,6 @@ const ProductList = () => {
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 100 }}
       />
-      <TouchableOpacity style={styles.continueButton}>
-        <Text style={styles.continueButtonText}>Continue</Text>
-      </TouchableOpacity>
     </View>
   );
 };
@@ -153,24 +141,24 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   productImage: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
+    width: 80,
+    height: 80,
     marginRight: 16,
   },
   productInfo: {
     flex: 1,
     marginRight: 16,
   },
-  productName: {
-    fontSize: 18,
+  productTitle: {
+    fontSize: 15,
     fontWeight: "bold",
     marginBottom: 4,
   },
   productDescription: {
-    fontSize: 14,
+    fontSize: 12,
     color: "#666",
     marginBottom: 4,
+    textAlign: "justify",
   },
   productPrice: {
     fontSize: 16,

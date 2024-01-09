@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Icon2 from "react-native-vector-icons/Entypo";
+import Icon3 from "react-native-vector-icons/AntDesign";
+import Icon4 from "react-native-vector-icons/Feather";
+import Icon5 from "react-native-vector-icons/Ionicons";
+import Icon6 from "react-native-vector-icons/MaterialCommunityIcons";
+import {screens} from "./screens";
+
 import {
   StyleSheet,
   Text,
@@ -11,84 +17,9 @@ import {
   FlatList,
 } from "react-native";
 
-export default MenuScreen = () => {
-  const data = [
-    {
-      id: 1,
-      title: "Homepage",
-      color: "#FF4500",
-      typeIcon: "1",
-      icon: "home",
-    },
-    {
-      id: 1,
-      title: "Text page",
-      color: "#87CEEB",
-      typeIcon: "2",
-      icon: "text",
-    },
-    {
-      id: 2,
-      title: "Gallery",
-      color: "#4682B4",
-      typeIcon: "2",
-      icon: "text",
-    },
-    {
-      id: 3,
-      title: "Products",
-      color: "#6A5ACD",
-      typeIcon: "2",
-      icon: "text",
-    },
-    {
-      id: 4,
-      title: "Form",
-      color: "#FF69B4",
-      typeIcon: "2",
-      icon: "text",
-    },
-    {
-      id: 5,
-      title: "Chat",
-      color: "#00BFFF",
-      typeIcon: "2",
-      icon: "text",
-    },
-    {
-      id: 6,
-      title: "Login",
-      color: "#00FFFF",
-      typeIcon: "2",
-      icon: "text",
-    },
-    {
-      id: 8,
-      title: "Theme settings",
-      color: "#20B2AA",
-      typeIcon: "2",
-      icon: "text",
-    },
-    {
-      id: 9,
-      title: "Protected page",
-      color: "#191970",
-      typeIcon: "2",
-      icon: "text",
-    },
-    {
-      id: 9,
-      title: "News",
-      color: "#008080",
-      typeIcon: "2",
-      icon: "text",
-    },
-  ];
-
-  const [options, setOptions] = useState(data);
-
-  const showAlert = () => {
-    Alert.alert("Option selected");
+const MenuScreen = ({ navigation }) => {
+  const changeScreen = (screen) => {
+    navigation.navigate(screen);
   };
 
   return (
@@ -96,7 +27,7 @@ export default MenuScreen = () => {
       <FlatList
         style={styles.list}
         contentContainerStyle={styles.listContainer}
-        data={options}
+        data={screens}
         horizontal={false}
         numColumns={2}
         keyExtractor={(item) => {
@@ -106,9 +37,7 @@ export default MenuScreen = () => {
           return (
             <TouchableOpacity
               style={[styles.card, { backgroundColor: item.color }]}
-              onPress={() => {
-                showAlert(item.view);
-              }}
+              onPress={() => changeScreen(item.link)}
             >
               <View style={styles.cardHeader}>
                 <Text style={styles.title}>{item.title}</Text>
@@ -116,8 +45,16 @@ export default MenuScreen = () => {
               <View style={styles.cardIcon}>
                 {item.typeIcon === "1" ? (
                   <Icon name={item.icon} size={40} color="#fff" />
-                ) : (
+                ) : item.typeIcon === "2" ? (
                   <Icon2 name={item.icon} size={40} color="#fff" />
+                ) : item.typeIcon === "3" ? (
+                  <Icon3 name={item.icon} size={40} color="#fff" />
+                ) : item.typeIcon === "4" ? (
+                  <Icon4 name={item.icon} size={40} color="#fff" />
+                ) : item.typeIcon === "5" ? (
+                  <Icon5 name={item.icon} size={40} color="#fff" />
+                ) : (
+                  <Icon6 name={item.icon} size={40} color="#fff" />
                 )}
               </View>
               <View style={styles.cardFooter}>
@@ -134,7 +71,8 @@ export default MenuScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
+    marginTop: 10,
+    marginBottom: 40,
   },
   list: {
     //paddingHorizontal: 5,
@@ -198,3 +136,5 @@ const styles = StyleSheet.create({
     width: 20,
   },
 });
+
+export default MenuScreen;

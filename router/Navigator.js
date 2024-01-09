@@ -19,6 +19,7 @@ import GalleryScreen from "../screens/GalleryScreen";
 import ThemeScreen from "../screens/ThemeScreen";
 import LoginScreen from "../screens/LoginScreen";
 import ChatScreen from "../screens/ChatScreen";
+import NewsScreen from "../screens/NewsScreen";
 import SideMenu from "../components/SideMenu";
 
 const Stack = createStackNavigator();
@@ -119,6 +120,7 @@ const Navigator = () => {
           name="Menu"
           component={MenuScreen}
           options={{ headerShown: false }}
+          navigation={navigation}
         />
         <Stack.Screen
           name="Login"
@@ -133,6 +135,11 @@ const Navigator = () => {
         <Stack.Screen
           name="Theme"
           component={ThemeScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="News"
+          component={NewsScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
