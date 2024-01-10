@@ -20,6 +20,7 @@ import ThemeScreen from "../screens/ThemeScreen";
 import LoginScreen from "../screens/LoginScreen";
 import ChatScreen from "../screens/ChatScreen";
 import NewsScreen from "../screens/NewsScreen";
+import CommentsScreen from "../screens/CommentsScreen";
 import SideMenu from "../components/SideMenu";
 
 const Stack = createStackNavigator();
@@ -119,6 +120,12 @@ const Navigator = () => {
         <Stack.Screen
           name="Menu"
           component={MenuScreen}
+          options={{ headerShown: false }}
+          navigation={navigation}
+        />
+        <Stack.Screen
+          name="Comments"
+          component={CommentsScreen}
           options={{ headerShown: false }}
           navigation={navigation}
         />

@@ -13,6 +13,9 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 const { width, height } = Dimensions.get("window");
+import avatar1 from "../assets/img/avatar1.jpg";
+import avatar2 from "../assets/img/avatar2.jpg";
+
 export default Chat = () => {
   const flatListRef = useRef();
   const messagesData = [
@@ -20,49 +23,49 @@ export default Chat = () => {
       id: 1,
       sent: true,
       msg: "Lorem ipsum dolor",
-      image: "https://www.bootdey.com/img/Content/avatar/avatar1.png",
+      image: avatar1,
     },
     {
       id: 2,
       sent: true,
       msg: "sit amet, consectetuer",
-      image: "https://www.bootdey.com/img/Content/avatar/avatar1.png",
+      image: avatar1,
     },
     {
       id: 3,
       sent: false,
       msg: "adipiscing elit. Aenean ",
-      image: "https://www.bootdey.com/img/Content/avatar/avatar6.png",
+      image: avatar2,
     },
     {
       id: 4,
       sent: true,
       msg: "commodo ligula eget dolor.",
-      image: "https://www.bootdey.com/img/Content/avatar/avatar1.png",
+      image: avatar1,
     },
     {
       id: 5,
       sent: false,
       msg: "Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes",
-      image: "https://www.bootdey.com/img/Content/avatar/avatar6.png",
+      image: avatar2,
     },
     {
       id: 6,
       sent: true,
-      msg: "nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo",
-      image: "https://www.bootdey.com/img/Content/avatar/avatar1.png",
+      msg: "nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.",
+      image: avatar1,
     },
     {
       id: 7,
       sent: false,
       msg: "rhoncus ut, imperdiet",
-      image: "https://www.bootdey.com/img/Content/avatar/avatar6.png",
+      image: avatar2,
     },
     {
       id: 8,
       sent: false,
       msg: "a, venenatis vitae",
-      image: "https://www.bootdey.com/img/Content/avatar/avatar6.png",
+      image: avatar2,
     },
   ];
   const [messages, setMessages] = useState(messagesData);
@@ -74,7 +77,7 @@ export default Chat = () => {
       id: Math.floor(Math.random() * 99999999999999999 + 1),
       sent: false,
       msg: newMessage,
-      image: "https://www.bootdey.com/img/Content/avatar/avatar6.png",
+      image: avatar2,
     });
     setNewMessage("");
     setMessages(messagesList);
@@ -87,7 +90,7 @@ export default Chat = () => {
         id: Math.floor(Math.random() * 99999999999999999 + 1),
         sent: true,
         msg: newMessage,
-        image: "https://www.bootdey.com/img/Content/avatar/avatar1.png",
+        image: avatar1,
       });
       setMessages(messagesList);
       setTimeout(() => {
@@ -101,7 +104,7 @@ export default Chat = () => {
     if (item.sent === false) {
       return (
         <View style={styles.eachMsg}>
-          <Image source={{ uri: item.image }} style={styles.userPic} />
+          <Image source={item.image} style={styles.userPic} />
           <View style={styles.msgBlock}>
             <Text style={styles.msgTxt}>{item.msg}</Text>
           </View>
@@ -113,7 +116,7 @@ export default Chat = () => {
           <View style={styles.rightBlock}>
             <Text style={styles.rightTxt}>{item.msg}</Text>
           </View>
-          <Image source={{ uri: item.image }} style={styles.userPic} />
+          <Image source={item.image} style={styles.userPic} />
         </View>
       );
     }
@@ -202,6 +205,7 @@ const styles = StyleSheet.create({
     width: width - 20,
     backgroundColor: "#fff",
     margin: 10,
+    paddingRight:0,
     shadowColor: "#3d3d3d",
     shadowRadius: 2,
     shadowOpacity: 0.5,
@@ -253,7 +257,7 @@ const styles = StyleSheet.create({
   rightBlock: {
     width: 220,
     borderRadius: 5,
-    backgroundColor: "#97c163",
+    backgroundColor: "#69cdfb",
     padding: 10,
     shadowColor: "#3d3d3d",
     shadowRadius: 2,
@@ -273,10 +277,9 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   sendButton: {
-    width: 38,
+    width: 50,
     height: 38,
-    borderRadius: 6,
-    backgroundColor: "black",
+    backgroundColor: "#107ebd",
     justifyContent: "center",
     alignItems: "center",
     marginTop: -10,
