@@ -15,14 +15,14 @@ import ProductsCategories from "../components/ProductsCategories";
 import axios from "axios";
 import API_URLS from "../config";
 
-const ProductCard = ({ item, onIncrement, onDecrement }) => {
+const ProductCard = ({ item }) => {
   const formattedPrice = (price) => {
     return price.toLocaleString("it-IT", {
       minimumFractionDigits: 2,
     });
   };
   return (
-    <View style={styles.productCard}>
+    <TouchableOpacity style={styles.productCard} onPress={() => goToProductDetail(item.id)}>
       <Image
         source={{ uri: item.image }}
         style={styles.productImage}
@@ -33,7 +33,7 @@ const ProductCard = ({ item, onIncrement, onDecrement }) => {
         <Text style={styles.productDescription}>{item.description}</Text>
         <Text style={styles.productPrice}>€ {formattedPrice(item.price)}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

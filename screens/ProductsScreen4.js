@@ -72,14 +72,14 @@ const ProductListView = () => {
     navigation.navigate("Product", { productId });
   };
 
-  const renderProduct = ({ item }) => {
+  const productCard = ({ item }) => {
     const formattedPrice = (price) => {
       return price.toLocaleString("it-IT", {
         minimumFractionDigits: 2,
       });
     };
     return (
-      <View style={styles.product}>
+      <TouchableOpacity style={styles.product} onPress={() => goToProductDetail(item.id)}>
         <Image
           style={styles.image}
           source={{ uri: item.image }}
@@ -89,7 +89,7 @@ const ProductListView = () => {
           <Text style={styles.title}>{item.title}</Text>
           <Text style={styles.price}>€ {formattedPrice(item.price)}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 
@@ -101,7 +101,7 @@ const ProductListView = () => {
 
       <FlatList
         data={filteredProducts}
-        renderItem={renderProduct}
+        renderItem={productCard}
         keyExtractor={(item) => item.id}
       />
     </View>

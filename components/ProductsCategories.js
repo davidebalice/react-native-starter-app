@@ -133,7 +133,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flexDirection: "row",
-    backgroundColor: "#ffffff",
     height: 260,
     padding: 0,
     width: "96%",

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, Alert, StyleSheet } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const Form = () => {
   const [firstName, setFirstName] = useState("");
@@ -40,6 +41,7 @@ const Form = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.pageTitle}>Contact form</Text>
       <Text style={styles.label}>Name</Text>
       <TextInput
         placeholder="Name"
@@ -72,7 +74,11 @@ const Form = () => {
         multiline
         numberOfLines={4}
       />
-      <Button title="Send Email" onPress={handleEmailSend} />
+      <Button
+        style={styles.sendButton}
+        title="Send email"
+        onPress={handleEmailSend}
+      />
     </View>
   );
 };
@@ -112,5 +118,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 10,
     paddingHorizontal: 10,
+  },
+  pageTitle: {
+    fontWeight: "bold",
+    fontSize: 17,
+    color: "#444",
+    textAlign: "center",
+  },
+  sendButton: {
+    marginTop: 1,
+    padding: 1,
   },
 });

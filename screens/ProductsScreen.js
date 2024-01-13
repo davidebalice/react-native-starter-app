@@ -12,6 +12,7 @@ import { Card, Paragraph } from "react-native-paper";
 import axios from "axios";
 import API_URLS from "../config";
 import ProductsMenu from "../components/ProductsMenu";
+import Spacer from "../components/Spacer";
 import SearchBar from "../components/SearchBar";
 import ProductsCategories from "../components/ProductsCategories";
 
@@ -105,6 +106,7 @@ const ProductList = () => {
               </Card>
             ))}
         </View>
+        <Spacer height={50}/>
       </ScrollView>
     </View>
   );
@@ -114,12 +116,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: "#fff",
+    backgroundColor: "#f1f1f1",
   },
   CardContainer: {
     flex: 1,
     flexDirection: "row",
-    backgroundColor: "#ffffff",
     flexWrap: "wrap",
     justifyContent: "center",
     padding: 0,

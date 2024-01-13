@@ -68,6 +68,7 @@ export default ProductList = () => {
   };
 
   const goToProductDetail = (productId) => {
+    console.log(productId);
     navigation.navigate("Product", { productId });
   };
 
@@ -97,7 +98,10 @@ export default ProductList = () => {
         renderItem={(post) => {
           const item = post.item;
           return (
-            <View style={styles.card}>
+            <TouchableOpacity
+              style={styles.card}
+              onPress={() => goToProductDetail(item.id)}
+            >
               <View style={styles.cardHeader}>
                 <View>
                   <Text style={styles.title}>{item.title}</Text>
@@ -117,20 +121,9 @@ export default ProductList = () => {
                   <Text style={styles.price}>
                     € {formattedPrice(item.price)}
                   </Text>
-                  <View style={styles.socialBarSection}>
-                    <TouchableOpacity style={styles.socialBarButton}>
-                      <Image
-                        style={styles.icon}
-                        source={{
-                          uri: "https://img.icons8.com/color/50/000000/hearts.png",
-                        }}
-                      />
-                      <Text style={styles.socialBarLabel}>25</Text>
-                    </TouchableOpacity>
-                  </View>
                 </View>
               </View>
-            </View>
+            </TouchableOpacity>
           );
         }}
       />

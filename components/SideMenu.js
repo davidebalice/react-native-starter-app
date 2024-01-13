@@ -10,6 +10,7 @@ import Icon5 from "react-native-vector-icons/Ionicons";
 import Icon6 from "react-native-vector-icons/MaterialCommunityIcons";
 import { screens } from "../screens/screens";
 import img from "../assets/img/image.jpg";
+import logo from "../assets/img/logoDark.png";
 
 const SideMenu = ({ navigation, closeDrawer }) => {
   const changeScreen = (screen) => {
@@ -19,7 +20,15 @@ const SideMenu = ({ navigation, closeDrawer }) => {
 
   return (
     <View style={[styles.container, styles.navigationContainer]}>
-      <Image source={img} style={styles.image} />
+      <View>
+        <View style={styles.titleContainer}>
+          <View style={styles.logoContainer}>
+            <Image source={logo} style={styles.logo} />
+          </View>
+          <Text style={styles.title}>Starter App 1.03</Text>
+        </View>
+        <Image source={img} style={styles.image} />
+      </View>
       <ScrollView>
         {screens.map((item) => (
           <TouchableOpacity
@@ -88,5 +97,34 @@ const styles = StyleSheet.create({
   text: {
     marginLeft: 20,
     color: "#111",
+  },
+  titleContainer: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    zIndex: 1000,
+  },
+  title: {
+    fontWeight: "bold",
+    padding: 14,
+    color: "#fff",
+    fontSize: 18,
+    textShadowColor: "rgba(0, 0, 0, 0.55)", 
+    textShadowOffset: { width: 2, height: 2 }, 
+    textShadowRadius: 5,
+  },
+  logoContainer: {
+    textAlign: "right",
+    display: "flex",
+    width: "100%",
+    padding: 14,
+  },
+  logo: {
+    width: 100,
+    height: 30,
+    alignSelf: "flex-end",
   },
 });
