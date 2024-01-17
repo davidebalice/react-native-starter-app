@@ -7,41 +7,10 @@ import {
   Image,
   ScrollView,
 } from "react-native";
+import news from "../news";
+import { format } from "date-fns";
 
 export default Profile = () => {
-  const matches = [
-    {
-      id: 1,
-      photo: "https://www.aroundweb.it/react/starter-app/news1.jpg",
-      name: "Aliquip do consectetur esse et adipiscing adipiscing lorem consequat quis.",
-    },
-    {
-      id: 2,
-      photo: "https://www.aroundweb.it/react/starter-app/news2.jpg",
-      name: "Sed aliqua ut veniam sed dolore fugiat sed voluptate eiusmod.",
-    },
-    {
-      id: 3,
-      photo: "https://www.aroundweb.it/react/starter-app/news3.jpg",
-      name: "Et minim veniam consequat fugiat veniam quis elit enim elit.",
-    },
-    {
-      id: 4,
-      photo: "https://www.aroundweb.it/react/starter-app/news4.jpg",
-      name: "Consequat minim magna aliquip lorem fugiat consequat amet incididunt esse.",
-    },
-    {
-      id: 5,
-      photo: "https://www.aroundweb.it/react/starter-app/news5.jpg",
-      name: "Minim labore sit cillum enim magna amet enim magna laboris.",
-    },
-  ];
-
-  const imageMapping = {
-    news1: require('../assets/img/news1.jpg'),
-    // altre immagini con i loro nomi e percorsi
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.section}>
@@ -53,14 +22,19 @@ export default Profile = () => {
         </View>
         <View style={styles.sectionBody}>
           <ScrollView horizontal contentContainerStyle={styles.sectionScroll}>
-            {matches.map(({ photo, id, name }) => (
-              <View style={styles.sectionCard} key={id}>
-                <Image style={styles.sectionImage} source={{uri:photo}} />
-                <View style={styles.sectionInfo}>
-                  <Text style={styles.sectionLabel}>{name}</Text>
+            {news &&
+              news.map(({ photo, id, title, description, date }) => (
+                <View style={styles.sectionCard} key={id}>
+                  <Image style={styles.sectionImage} source={{ uri: photo }} />
+                  <View style={styles.sectionInfo}>
+                    <Text style={styles.sectionDate}>
+                      {format(new Date(date), "dd/MM/yyyy")}
+                    </Text>
+                    <Text style={styles.sectionTitle}>{title}</Text>
+                    <Text style={styles.sectionDescription}>{description}</Text>
+                  </View>
                 </View>
-              </View>
-            ))}
+              ))}
           </ScrollView>
         </View>
       </View>
@@ -150,7 +124,16 @@ const styles = StyleSheet.create({
   sectionInfo: {
     padding: 10,
   },
-  sectionLabel: {
+  sectionTitle: {
+    fontSize: 12,
+    marginBottom: 2,
+    fontWeight: "bold",
+  },
+  sectionDate: {
+    fontSize: 12,
+    marginBottom: 2,
+  },
+  sectionDescription: {
     fontSize: 12,
     marginBottom: 2,
   },

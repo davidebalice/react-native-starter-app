@@ -27,3 +27,30 @@ export const bluTheme = {
   },
   logo: logoWhite,
 };
+
+export const redTheme = {
+  colors: {
+    primary: "#ff0000",
+    background: "#ff0000",
+    text: "#ffffff",
+  },
+  logo: logoWhite,
+};
+
+export const greenTheme = {
+  colors: {
+    primary: "#0dbe15",
+    background: "#0dbe15",
+    text: "#ffffff",
+  },
+  logo: logoWhite,
+};
+
+export const orangeTheme = {
+  colors: {
+    primary: "#ed720f",
+    background: "#ed720f",
+    text: "#ffffff",
+  },
+  logo: logoWhite,
+};

@@ -5,13 +5,13 @@ import Navigator from "./router/Navigator";
 import BottomBar from "./components/BottomBar";
 import { AuthProvider } from "./context/authContext";
 import ThemeContext from "./context/themeContext";
-import { lightTheme, darkTheme } from "./context/themes";
+import { lightTheme } from "./context/themes";
 
 const App = () => {
   const [theme, setTheme] = useState(lightTheme);
 
-  const toggleTheme = () => {
-    setTheme(theme === lightTheme ? darkTheme : lightTheme);
+  const toggleTheme = (newTheme) => {
+    setTheme(newTheme);
   };
   return (
     <>

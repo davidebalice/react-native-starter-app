@@ -1,31 +1,73 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Icon2 from "react-native-vector-icons/Ionicons";
+import Icon3 from "react-native-vector-icons/Entypo";
+import Icon6 from "react-native-vector-icons/MaterialCommunityIcons";
+import ThemeContext from "../context/themeContext";
 
 const BottomBar = () => {
   const navigation = useNavigation();
+  const { theme, toggleTheme } = useContext(ThemeContext);
   return (
-    <View style={styles.container}>
+    <View
+      style={{ ...styles.container, backgroundColor: theme.colors.background }}
+    >
       <TouchableOpacity
         style={styles.tabButton}
         onPress={() => {
           navigation.navigate("Home");
         }}
       >
-        <Icon name="home" size={24} color="#000" />
-        <Text>Home</Text>
+        <Icon name="home" size={20} style={{ color: theme.colors.text }} />
+        <Text style={{ ...styles.text, color: theme.colors.text }}>Home</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.tabButton}
         onPress={() => {
-          navigation.navigate("TextPage");
+          navigation.navigate("Products");
         }}
       >
-        <Icon2 name="settings-sharp" size={24} color="#000" />
-        <Text>Settings</Text>
+        <Icon3
+          name="shopping-cart"
+          size={20}
+          style={{ color: theme.colors.text }}
+        />
+        <Text style={{ ...styles.text, color: theme.colors.text }}>
+          Products
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.tabButton}
+        onPress={() => {
+          navigation.navigate("Login");
+        }}
+      >
+        <Icon6
+          name="login-variant"
+          size={20}
+          style={{ color: theme.colors.text }}
+        />
+        <Text style={{ ...styles.text, color: theme.colors.text }}>Login</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.tabButton}
+        onPress={() => {
+          navigation.navigate("Theme");
+        }}
+      >
+        <Icon2
+          name="settings-sharp"
+          size={20}
+          style={{ color: theme.colors.text }}
+        />
+        <Text style={{ ...styles.text, color: theme.colors.text }}>
+          Settings
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -48,6 +90,9 @@ const styles = StyleSheet.create({
   },
   tabButton: {
     alignItems: "center",
+  },
+  text: {
+    fontSize: 10,
   },
 });
 
