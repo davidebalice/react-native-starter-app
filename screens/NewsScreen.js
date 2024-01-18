@@ -1,14 +1,14 @@
 import React, { useRef, useState } from "react";
 import { StyleSheet } from "react-native";
 import Spacer from "../components/Spacer";
-import Gallery from "../components/Gallery";
-import { Button, Text, View, Image, ScrollView } from "react-native";
+import News from "../components/News";
+import { View, ScrollView } from "react-native";
 
 const NewsScreen = () => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Gallery />
+        <News />
         <Spacer height={80} />
       </View>
     </ScrollView>

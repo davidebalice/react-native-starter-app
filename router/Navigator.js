@@ -20,6 +20,7 @@ import ThemeScreen from "../screens/ThemeScreen";
 import LoginScreen from "../screens/LoginScreen";
 import ChatScreen from "../screens/ChatScreen";
 import NewsScreen from "../screens/NewsScreen";
+import NewsDetailScreen from "../screens/NewsDetailScreen";
 import CommentsScreen from "../screens/CommentsScreen";
 import SideMenu from "../components/SideMenu";
 
@@ -147,6 +148,11 @@ const Navigator = () => {
         <Stack.Screen
           name="News"
           component={NewsScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="NewsDetail"
+          component={NewsDetailScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

@@ -9,6 +9,8 @@ import {
 } from "react-native";
 import ProtectedContents from "../middlewares/ProtectedContents";
 import { AuthContext } from "../context/authContext";
+import avatar1 from "../assets/img/avatar1.jpg";
+import img from "../assets/img/image.jpg";
 
 const ProtectedScreen = () => {
   const styles = StyleSheet.create({
@@ -102,7 +104,7 @@ const ProtectedScreen = () => {
       flexDirection: "row",
       gap: 10,
       alignItems: "center",
-      justifyContent:"space-around"
+      justifyContent: "space-around",
     },
   });
 
@@ -134,20 +136,10 @@ const ProtectedScreen = () => {
           ></View>
 
           <View style={styles.headerContainer}>
-            <Image
-              style={styles.coverPhoto}
-              source={{
-                uri: "https://www.bootdey.com/image/280x280/1E90FF/1E90FF",
-              }}
-            />
+            <Image style={styles.coverPhoto} source={img} />
             <View style={styles.profileContainer}>
-              <Image
-                style={styles.profilePhoto}
-                source={{
-                  uri: "https://www.bootdey.com/img/Content/avatar/avatar1.png",
-                }}
-              />
-              <Text style={styles.nameText}>Your Name</Text>
+              <Image style={styles.profilePhoto} source={avatar1} />
+              <Text style={styles.nameText}>Mario Rossi</Text>
             </View>
           </View>
           <View style={styles.bioContainer}>
@@ -156,7 +148,7 @@ const ProtectedScreen = () => {
               ullamcorper nisi.
             </Text>
           </View>
-         
+
           <TouchableOpacity style={styles.button} onPress={null}>
             <Text style={styles.buttonText}>Edit Profile</Text>
           </TouchableOpacity>

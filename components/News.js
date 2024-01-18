@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -7,24 +7,35 @@ import {
   Image,
   ScrollView,
 } from "react-native";
+import { Card, Paragraph } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 import news from "../news";
 import { format } from "date-fns";
 
-export default NewsHome = () => {
+const Gallery = () => {
+  const [data, setData] = useState([]);
+
+  const navigation = useNavigation();
+
+  const goToNewsDetail = (newsId) => {
+    navigation.navigate("NewsDetail", { newsId });
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.section}>
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>Latest news</Text>
-          <TouchableOpacity style={styles.seeAllButton}>
-            <Text style={styles.seeAllButtonText}>See all</Text>
-          </TouchableOpacity>
+          <Text style={styles.screenTitle}>News</Text>
         </View>
-        <View style={styles.sectionBody}>
-          <ScrollView horizontal contentContainerStyle={styles.sectionScroll}>
+        <ScrollView>
+          <View style={styles.sectionBody}>
             {news &&
               news.map(({ photo, id, title, description, date }) => (
-                <View style={styles.sectionCard} key={id}>
+                <TouchableOpacity
+                  style={styles.sectionCard}
+                  key={id}
+                  onPress={() => goToNewsDetail(id)}
+                >
                   <Image style={styles.sectionImage} source={{ uri: photo }} />
                   <View style={styles.sectionInfo}>
                     <Text style={styles.sectionDate}>
@@ -33,10 +44,10 @@ export default NewsHome = () => {
                     <Text style={styles.sectionTitle}>{title}</Text>
                     <Text style={styles.sectionDescription}>{description}</Text>
                   </View>
-                </View>
+                </TouchableOpacity>
               ))}
-          </ScrollView>
-        </View>
+          </View>
+        </ScrollView>
       </View>
     </View>
   );
@@ -100,12 +111,15 @@ const styles = StyleSheet.create({
   },
   sectionBody: {
     marginTop: 10,
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
   sectionScroll: {
     paddingBottom: 20,
   },
   sectionCard: {
-    width: 200,
+    width: "42%",
     minHeight: 200,
     backgroundColor: "#fff",
     shadowColor: "#B0C4DE",
@@ -137,4 +151,12 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginBottom: 2,
   },
+  screenTitle: {
+    fontSize: 17,
+    fontWeight: "bold",
+    marginLeft: 8,
+    marginBottom: 10,
+  },
 });
+
+export default Gallery;
