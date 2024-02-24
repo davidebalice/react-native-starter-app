@@ -108,11 +108,7 @@ const ProtectedScreen = () => {
     },
   });
 
-  const { token, setAuthToken } = useContext(AuthContext);
-
-  const logout = () => {
-    setAuthToken("");
-  };
+  const { token, setAuthToken, logout } = useContext(AuthContext);
 
   return (
     <View style={styles.container}>

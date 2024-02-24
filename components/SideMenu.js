@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext } from "react";
 import { StyleSheet, ScrollView } from "react-native";
 import { Text, View, Image, TouchableOpacity } from "react-native";
 import Spacer from "../components/Spacer";
@@ -11,8 +11,10 @@ import Icon6 from "react-native-vector-icons/MaterialCommunityIcons";
 import { screens } from "../screens/screens";
 import img from "../assets/img/image.jpg";
 import logo from "../assets/img/logoDark.png";
+import { AuthContext } from "../context/authContext";
 
 const SideMenu = ({ navigation, closeDrawer }) => {
+  const { logout, token } = useContext(AuthContext);
   const changeScreen = (screen) => {
     navigation.navigate(screen);
     closeDrawer();
@@ -54,6 +56,17 @@ const SideMenu = ({ navigation, closeDrawer }) => {
             <Text style={{ marginLeft: 20 }}>{item.title}</Text>
           </TouchableOpacity>
         ))}
+
+        {token && (
+          <TouchableOpacity
+            style={styles.menuButton}
+            onPress={logout}
+            key="logoudMenu"
+          >
+            <Icon6 name="logout" size={20} />
+            <Text style={{ marginLeft: 20 }}>Logout</Text>
+          </TouchableOpacity>
+        )}
 
         <Spacer height={200} />
       </ScrollView>
@@ -112,8 +125,8 @@ const styles = StyleSheet.create({
     padding: 14,
     color: "#fff",
     fontSize: 18,
-    textShadowColor: "rgba(0, 0, 0, 0.55)", 
-    textShadowOffset: { width: 2, height: 2 }, 
+    textShadowColor: "rgba(0, 0, 0, 0.55)",
+    textShadowOffset: { width: 2, height: 2 },
     textShadowRadius: 5,
   },
   logoContainer: {

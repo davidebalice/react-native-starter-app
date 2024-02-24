@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState } from "react";
 
 export const AuthContext = createContext();
 
@@ -9,8 +9,13 @@ export const AuthProvider = ({ children }) => {
     setToken(newToken);
   };
 
+  const logout = () => {
+    setAuthToken("");
+    setToken("");
+  };
+
   return (
-    <AuthContext.Provider value={{ token, setAuthToken }}>
+    <AuthContext.Provider value={{ token, setAuthToken, logout }}>
       {children}
     </AuthContext.Provider>
   );

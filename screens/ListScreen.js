@@ -19,6 +19,7 @@ const ListScreen = () => {
     { item: "Incididunt elit quis fugiat cillum sit voluptate. ", key: "1" },
   ]);
   const panelHeight = useRef(new Animated.Value(0)).current;
+  const [open, setOpen] = useState(false);
 
   const addItem = () => {
     setItems([...items, { item, key: items.length.toString() }]);
@@ -53,6 +54,7 @@ const ListScreen = () => {
       duration: 300,
       useNativeDriver: false,
     }).start();
+    setOpen(true);
   };
 
   const closePanel = () => {
@@ -61,6 +63,7 @@ const ListScreen = () => {
       duration: 300,
       useNativeDriver: false,
     }).start();
+    setOpen(false);
   };
 
   return (
@@ -76,12 +79,11 @@ const ListScreen = () => {
             }
           }}
         >
-          <Icon
-            name="plus-circle"
-            size={20}
-            color="#888"
-            style={styles.plusIcon}
-          />
+          {open ? (
+            <Icon name="close" size={20} color="#888" style={styles.plusIcon} />
+          ) : (
+            <Icon name="plus" size={20} color="#888" style={styles.plusIcon} />
+          )}
         </TouchableOpacity>
       </View>
 
@@ -148,7 +150,7 @@ const styles = StyleSheet.create({
   },
   list: {
     marginTop: 10,
-    width:"100%"
+    width: "100%",
   },
   floatingButtonContainer: {
     position: "absolute",
@@ -191,13 +193,13 @@ const styles = StyleSheet.create({
     borderColor: "#dddddd",
   },
   card: {
-    width:"100%",
+    width: "100%",
     shadowColor: "#000000",
     shadowOffset: {
       width: 0,
       height: 6,
     },
-    shadowOpacity: 0.30,
+    shadowOpacity: 0.3,
     shadowRadius: 10,
     elevation: 7,
     marginVertical: 7,

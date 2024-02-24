@@ -50,6 +50,7 @@ const StoryList = () => {
 
 const Comments = () => {
   const panelHeight = useRef(new Animated.Value(0)).current;
+  const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([
     {
@@ -84,6 +85,7 @@ const Comments = () => {
       duration: 300,
       useNativeDriver: false,
     }).start();
+    setOpen(true);
   };
 
   const closePanel = () => {
@@ -92,6 +94,7 @@ const Comments = () => {
       duration: 300,
       useNativeDriver: false,
     }).start();
+    setOpen(false);
   };
 
   const addMessage = () => {
@@ -136,12 +139,11 @@ const Comments = () => {
             }
           }}
         >
-          <Icon
-            name="plus-circle"
-            size={20}
-            color="#888"
-            style={styles.plusIcon}
-          />
+          {open ? (
+            <Icon name="close" size={20} color="#888" style={styles.plusIcon} />
+          ) : (
+            <Icon name="plus" size={20} color="#888" style={styles.plusIcon} />
+          )}
         </TouchableOpacity>
       </View>
       <StoryList />
